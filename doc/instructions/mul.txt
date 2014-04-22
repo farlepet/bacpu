@@ -1,0 +1,10 @@
+MUL instruction
+---------------
+
+	Multiply one register by another.
+
+***Instruction Formar ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Multiplicand and Product
+	Second Register:    Multiplier

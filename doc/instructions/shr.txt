@@ -1,0 +1,10 @@
+SHR instruction
+---------------
+
+	Shift the bits in a register left by a specified amount.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Value
+	Second Register:    Number of bits to shift

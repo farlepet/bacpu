@@ -1,0 +1,10 @@
+DIV instruction
+---------------
+
+	Divides one register by another.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Divedend and Quotient
+	Second Register:    Divisor

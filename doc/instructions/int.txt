@@ -1,0 +1,27 @@
+INT Instruction
+---------------
+
+	The INT instruction issues an interrupt. Valid interrupts are between 0 and
+256, inclusive. See interrupts.tx
+t
+
+*** Instruction Info layout ***
+
+              0
++-------------+
+| Src (1 bit) |
++-------------+
+
+Src:
+	0) Register
+	1) Immediate
+
+*** Instruction Format ***
+
+If Src == 0
+	Instruction Format: OpCode with two registers
+	First Register:     Interrupt
+	Second Register:    Unused
+Else
+	Instruction Format: OpCode and Immediate 
+	Immediate:          Interrupt

@@ -1,0 +1,7 @@
+Various codes used by BACPU
+---------------------------
+
+*** Manufacture codes ***
+
+This is a list of known manufacture codes
+	0xFEED4096 - farlepet

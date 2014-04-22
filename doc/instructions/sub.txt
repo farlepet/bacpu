@@ -1,0 +1,10 @@
+SUB instruction
+---------------
+
+	Subtracts one register from another.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Minuend and Difference
+	Second Register:    Subtrahend

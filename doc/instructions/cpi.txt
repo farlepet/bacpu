@@ -1,0 +1,39 @@
+CPI instruction
+---------------
+
+	The CPI instruction is used to gather various information about the CPU and
+closely connected parts.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Info Slot
+	Second Register:    Which register to store info into
+
+*** CPU information slots ***
+
+There are a number of information slots:
+	0) Attached memory
+		* In bytes
+	1) Attached devices
+		* Number of `COMM` accessible devices
+		* There may be gaps between devices, so you still must search all slots
+			until you reach this number.
+		* There is a maximum of 256. If there are 256 devices, there will be NO
+			gaps.
+	2) Manufacturer code
+		* A 32-bit number used by the manufacturer/creator
+			* See codes.txt for more information
+	3) Version number
+		* The current version of the CPU
+			* Meaning is dependant on the manufacturer
+	4) Capabilities
+		* A bit string representing the BACPU's capabilities
+			* NOTE: This could also be derived from the Manufacture code and the
+				Version number, but that would be memory and time consuming.
+		* Some bits may be manufacturer-dependant, if it is not displayed in
+			this document.
+		* Layout of the bit string (0 == LSB):
+			0) Planar Memory
+				* Whether or not the BACPU supports the Planar Memory layout
+			

@@ -1,0 +1,10 @@
+POP instruction
+---------------
+
+	The POP instruction pops the top DWORD of the stack into a register.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Regsiter in which to store the data
+	Second Register:    Unused

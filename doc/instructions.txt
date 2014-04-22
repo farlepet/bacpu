@@ -1,0 +1,30 @@
+Listing of all the instructions
+-------------------------------
+
+*** List of Instructions ***
+
++-----+------+-------------+-------------------------+-----------+
+| Num | Name | Inst. Frmt  | Description             | Info File |
++=====+======+=============+=========================+===========+
+| 0   | NOP  | N/A         | No Operation            | nop.txt   |
+| 1   | INT  | Imm. or Reg | Trigger an Interrupt    | int.txt   |
+| 2   | COMM | In or Out   | Communicate with Device | comm.txt  |
+| 3   | MOV  | Imm/Reg/Sz  | Move Data               | mov.txt   |
+| 4   | CPI  | N/A         | CPU Information         | cpi.txt   |
+| 5   | INC  | N/A         | Increment Register      | inc.txt   |
+| 6   | DEC  | N/A         | Decrement Register      | dec.txt   |
+| 7   | INV  | N/A         | Invert Register         | inv.txt   |
+| 8   | ADD  | N/A         | Add to Register         | add.txt   |
+| 9   | SUB  | N/A         | Subtract from Register  | sub.txt   |
+| A   | DIV  | N/A         | Divide Register         | div.txt   |
+| B   | MUL  | N/A         | Multiply Register       | mul.txt   |
+| C   | SHL  | N/A         | Bitwise Shift Left      | shl.txt   |
+| D   | SHR  | N/A         | Bitwise Shift Right     | shr.txt   |
+| E   | JMP  | See jmp.txt | Jump                    | jmp.txt   |
+| F   | CMP  | Type of Cmp | Compare Registers       | cmp.txt   |
+| 10  | JOC  | See joc.txt | Jump on Condition       | joc.txt   |
+| 11  | PUSH | N/A         | Push item onto stack    | push.txt  |
+| 12  | POP  | N/A         | Pop item from stack     | pop.txt   |
++-----+------+-------------+-------------------------+-----------+
+	NOTES:
+	 * Info Files are all in 'instructions/'

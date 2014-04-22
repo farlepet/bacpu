@@ -1,0 +1,11 @@
+INC instruction
+---------------
+
+	The INC instruction just increments a register. It is one of the simpler
+BACPU instructions.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Register to increment
+	Second Register:    Unused

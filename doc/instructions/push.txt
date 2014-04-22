@@ -1,0 +1,10 @@
+PUSH instruction
+----------------
+
+	The PUSH instruction pushes a DWORD unto the stack.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Data to push on the stack
+	Second Register:    Unused

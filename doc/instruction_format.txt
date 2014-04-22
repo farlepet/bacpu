@@ -1,0 +1,38 @@
+Description of the BACPU's instruction format
+---------------------------------------------
+
+*** OpCode Format ***
+
++------------------+-----------------------+
+| Instruction (1B) | Instruction Info (1B) |
++------------------+-----------------------+
+	Format of an opcode
+
+*** General Instruction Formats ***
+
++-------------+
+| OpCode (2B) |
++-------------+
+	OpCode only (2B)
+
++-------------+----------------+
+| OpCode (2B) | Immediate (4B) |
++-------------+----------------+
+	OpCode and Immediate (6B)
+
++-------------+---------------+---------------+
+| OpCode (2B) | Register (1B) | Register (1B) |
++-------------+---------------+---------------+
+	OpCode and two Registers (4B)
+	(It is not required that the second register is used)
+
++-------------+----------------+---------------+--------------+
+| OpCode (2B) | Immediate(4B) | Register (1B) | Padding (1B) |
++-------------+----------------+---------------+--------------+
+	OpCode with Immediate and Register (8B)
+
++-------------+----------------+----------------+
+| OpCode (2B) | Immediate (4B) | Immediate (4B) |
++-------------+----------------+----------------+
+	OpCode with two Immediates (10B)
+

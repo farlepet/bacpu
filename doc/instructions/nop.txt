@@ -1,0 +1,10 @@
+NOP instruction
+---------------
+
+	The NOP instruction is the most basic BACPU instruction. It really isn't an
+instruction at all. All it does is cause a small delay and allow from some
+operations to process.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode only

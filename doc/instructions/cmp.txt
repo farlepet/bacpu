@@ -1,0 +1,32 @@
+CMP Instruction
+---------------
+
+	Compare two values OR if a certain condition is met. If the outcome is TRUE,
+the TRUE flag is set in FLG.
+
+*** Instruction Info layout ***
+				  7								  0
++-----------------+-------------------------------+
+| Compare (1 bit) | Comparison/Condition (7 bits) |
++-----------------+-------------------------------+
+
+Compare:
+	0) CMP checks is a condition is TRUE
+	1) CMP checks if a comparison is TRUE
+
+Comparison/Condition:
+	IF Compare == 0
+		0) Carry == 1
+	IF Compare == 1:
+		0) Zero -- Compares first value to 0
+		1) Equal
+		2) Greater Than
+		3) Greater Than or Equal to
+		4) Less Than
+		5) Less Than or Equal to
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     First Value / Value / Unused
+	Second Register:    Second Value / Unused

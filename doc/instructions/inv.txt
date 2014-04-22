@@ -1,0 +1,10 @@
+INV instruction
+---------------
+
+	Applies a bitwise NOT to the given register.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Register to invert
+	Second Register:    Unused

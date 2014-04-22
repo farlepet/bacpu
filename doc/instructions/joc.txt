@@ -1,0 +1,39 @@
+JOC instruction
+---------------
+
+	Jump to a specified location in memory if the TRUE flag in FLG is set or
+not, depending on `False.`
+
+*** Instruction Info Layout ***
+				3				2					1				 0
+----------------+---------------+-------------------+----------------+
+| False (1 bit) | Short (1 bit) | Backwards (1 bit) | Planar (1 bit) |
++---------------+---------------+-------------------+----------------+
+
+False:
+	0) Jump if TRUE is 1
+	1) Jump if TRUE is 0
+
+Short:
+	0) Long Jump
+	1) Short Jump
+
+Backwards:
+	0) Short Jump is Forwards
+	1) Short Jump is Backwards
+
+Planar:
+	0) Jump is to Linear memory
+	1) Jump is to Planar memory
+
+
+*** Instruction Format ***
+
+If Planar == 0 OR Short == 1
+	Instruction Format: OpCode with two registers
+	First Register:     Pointer to location to jump to
+	Second Register:    Unused
+Else
+	Instruction Format: OpCode with two registers
+	First Register:     Plane to jump to
+	Second Register:    Offest within the plane to jump to

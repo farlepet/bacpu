@@ -1,0 +1,24 @@
+COMM instruction
+----------------
+
+	The COMM instruction is used to communicate with peripherals. It handles
+both input and output.
+
+
+*** Instruction Info layout ***
+
+					0
++-------------------+
+| Direction (1 bit) |
++-------------------+
+
+Direction:
+ 0) Out
+ 1) In
+
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Device
+	Second Register:    Value

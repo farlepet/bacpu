@@ -1,0 +1,11 @@
+DEC instruction
+---------------
+
+	The DEC instruction decrements a register. It is exactly the same is the INC
+instruction except it decrements instead of increments.
+
+*** Instruction Format ***
+
+	Instruction Format: OpCode with two registers
+	First Register:     Register to decrement
+	Second Register:    Unused

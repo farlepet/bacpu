@@ -1,0 +1,34 @@
+JMP instruction
+---------------
+
+	Jump to a specified location in memory.
+
+*** Instruction Info Layout ***
+				2					1				 0
++---------------+-------------------+----------------+
+| Short (1 bit) | Backwards (1 bit) | Planar (1 bit) |
++---------------+-------------------+----------------+
+
+Short:
+	0) Long Jump
+	1) Short Jump
+
+Backwards:
+	0) Short Jump is Forwards
+	1) Short Jump is Backwards
+
+Planar:
+	0) Jump is to Linear memory
+	1) Jump is to Planar memory
+
+
+*** Instruction Format ***
+
+If Planar == 0 OR Short == 1
+	Instruction Format: OpCode with two registers
+	First Register:     Pointer to location to jump to
+	Second Register:    Unused
+Else
+	Instruction Format: OpCode with two registers
+	First Register:     Plane to jump to
+	Second Register:    Offest within the plane to jump to
