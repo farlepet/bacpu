@@ -11,7 +11,7 @@ BACPU.
 +-----------------+ Selector +-\
 |       Selector/8|==========|  \  256 or less Data Lines
 |				  |  Input   |   |==============#
-|          Request|----------|  /               ║
+|          Request|----------|  /             ║
 | BACPU           |          +-/                ║ #1    +-----------+
 |           Data/8|======================#      #-------|Enable/Req |
 |                 |                      ║      ║       |        IRQ|-+
