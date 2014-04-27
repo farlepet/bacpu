@@ -1,0 +1,30 @@
+Documentation on BACPU peripherals
+----------------------------------
+
+	All peripherals are connected to the BACPU's main bus. These peripherals
+only accept input or generate output if they are requested to do so by the
+BACPU.
+
+*** BACPU Peripheral Interface ***
+
+							8 - 256 Demultiplexer (Actual # of lines may be less)
++-----------------+ Selector +-\
+|       Selector/8|==========|  \  256 or less Data Lines
+|				  |  Input   |   |==============#
+|          Request|----------|  /               ║
+| BACPU           |          +-/                ║ #1    +-----------+
+|           Data/8|======================#      #-------|Enable/Req |
+|                 |                      ║      ║       |        IRQ|-+
+|              IRQ|--------------+       #======║=======|Data       | |
+|                 |				 |		 ║      ║       +-----------+ |
+|			IRQ In|-----+        |       .      .                     |
+|				  |		|		 |		 .      .                     |
+|		IRQ Sel/8 |=#	|		 |		 .      .                     |
+|                 |	║	|		 |		 ║      | #n    +-----------+ |
++-----------------+ ║ 	|		 |		 ║      +-------|Enable/Req | |
+                    #/-----\     |       ║              |        IRQ|-#
+					/		\   /-\		 #==============|Data       | ║
+					+-------+  |   |					+-----------+ ║
+	256 - 8 Multiplexer	║	   |/║\| OR Gate			              ║
+	(Again, actual # of	║		 ║									  ║
+	lines may be less)	#========#====================================#

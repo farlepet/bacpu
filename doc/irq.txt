@@ -1,0 +1,10 @@
+Documentation in DACPU's IRQs
+-----------------------------
+
+*** How to call an IRQ ***
+
+	If a peripheral wants to call an IRQ, it must bring it's IRQ line high. Once
+it does that, the CPU will be notified (For schematic, see peripheral.txt) Once
+the CPU has time to take care of the IRQ, it will call the interrupt vector, and
+jump into the code. The code must tell the peripheral to drop the line low
+again, or the CPU will be stuck in an interrupt-loop.

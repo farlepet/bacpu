@@ -1,7 +1,7 @@
 PUSH instruction
 ----------------
 
-	The PUSH instruction pushes a DWORD unto the stack.
+	The PUSH instruction pushes a DWORD unto the stack and increments SP by 4.
 
 *** Instruction Format ***
 
