@@ -1,30 +1,61 @@
 Documentation on BACPU peripherals
 ----------------------------------
 
-	All peripherals are connected to the BACPU's main bus. These peripherals
+    All peripherals are connected to the BACPU's main bus. These peripherals
 only accept input or generate output if they are requested to do so by the
-BACPU.
+BACPU. When requesting information from a peripheral, the BACPU must first send
+a 0xFFFFFFFF to the device, as this is the data request function.
 
 *** BACPU Peripheral Interface ***
 
-							8 - 256 Demultiplexer (Actual # of lines may be less)
+                            8 - 256 Demultiplexer (Actual # of lines may be less)
 +-----------------+ Selector +-\
 |       Selector/8|==========|  \  256 or less Data Lines
-|				  |  Input   |   |==============#
-|          Request|----------|  /             ║
+|                 |  Input   |   |==============#
+|          Request|----------|  /               ║
 | BACPU           |          +-/                ║ #1    +-----------+
-|           Data/8|======================#      #-------|Enable/Req |
+|          Data/32|======================#      #-------|Enable/Req |
 |                 |                      ║      ║       |        IRQ|-+
 |              IRQ|--------------+       #======║=======|Data       | |
-|                 |				 |		 ║      ║       +-----------+ |
-|			IRQ In|-----+        |       .      .                     |
-|				  |		|		 |		 .      .                     |
-|		IRQ Sel/8 |=#	|		 |		 .      .                     |
-|                 |	║	|		 |		 ║      | #n    +-----------+ |
-+-----------------+ ║ 	|		 |		 ║      +-------|Enable/Req | |
+|                 |              |       ║      ║       +-----------+ |
+|           IRQ In|-----+        |       .      .                     |
+|                 |     |        |       .      .                     |
+|       IRQ Sel/8 |=#   |        |       .      .                     |
+|                 | ║   |        |       ║      | #n    +-----------+ |
++-----------------+ ║   |        |       ║      +-------|Enable/Req | |
                     #/-----\     |       ║              |        IRQ|-#
-					/		\   /-\		 #==============|Data       | ║
-					+-------+  |   |					+-----------+ ║
-	256 - 8 Multiplexer	║	   |/║\| OR Gate			              ║
-	(Again, actual # of	║		 ║									  ║
-	lines may be less)	#========#====================================#
+                    /       \   /-\      #==============|Data       | ║
+                    +-------+  |   |                    +-----------+ ║
+    256 - 8 Multiplexer ║      |/║\| OR Gate                          ║
+    (Again, actual # of ║        ║                                    ║
+    lines may be less)  #========#====================================#
+
+
+*** Peripheral Header Information (PHI) ***
+
+    Current PHI version as of this document: 0x00000000
+
+    The first 256 functions of the Peripheral must be reserved to return info
+about that particular peripheral, called the Peripheral Header Information (PHI)
+Here is the format of the PHI:
+
+    +-------------------------+
+   1| PHI Version (4B)        | - Version of the PHI used by the device
+    +-------------------------+
+   2| Hardware Version (4B)   | - Version of the device hardware
+    +-------------------------+
+   3|                         | \
+   4|                         | |
+   5|                         | |
+   6| Peripheral Name (32B)   | |- Name of the device (32 characters)
+   7|                         | |
+   8|                         | |
+   9|                         | |
+  10|                         | /
+    +-------------------------+
+  11| Peripheral Type (4B)    | - Type code of the device
+    +-------------------------+
+  12| Peripheral Subtype (4B) | - Subtype of the device
+    +-------------------------+
+  12| Manufacturer Code (4B)  | - Manufacturer code of the device
+    +-------------------------+      (Dependant on manufacturer)
