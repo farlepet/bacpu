@@ -11,12 +11,14 @@ the TRUE flag is set in FLG.
 +-----------------+-------------------------------+
 
 Compare:
-	0) CMP checks is a condition is TRUE
+	0) CMP checks if a condition is TRUE
 	1) CMP checks if a comparison is TRUE
 
 Comparison/Condition:
 	IF Compare == 0
 		0) Carry == 1
+        1) Memory Mode == 1
+        4) TRUE == 1 (No reason to use this)
 	IF Compare == 1:
 		0) Zero -- Compares first value to 0
 		1) Equal
@@ -24,6 +26,25 @@ Comparison/Condition:
 		3) Greater Than or Equal to
 		4) Less Than
 		5) Less Than or Equal to
+
+
+*** Instruction Flow ***
+
+CMP
+    * Check that both registers are valid
+        * False
+            * Increase PC
+            * Call exception
+        * True
+            * Check Compare bit
+                * Compare == 0
+                    * Check a condition (See above)
+                    * Result -> TRUE
+                * Compare == 1
+                    * Compare two registers for certain condition (See above)
+                    * Result -> TRUE
+            * Increase PC
+
 
 *** Instruction Format ***
 

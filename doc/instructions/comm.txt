@@ -17,6 +17,35 @@ Direction:
  1) In
 
 
+*** Instruction Flow ***
+
+COMM
+    * Check both registers are valid
+        * False
+            * Increase PC
+            * Call exception
+        * True
+            * Check Direction bit
+                * Set Selector lines to first 8 bits of first register (See
+                    peripheral.txt)
+                * Bring Request line high (See peripheral.txt)
+                * Direction == 0
+                    * Set Data lines to value in second register (See
+                        peripheral.txt)
+                    * Create short delay
+                * Direction == 1
+                    * Set Data lines to value 0xFFFFFFFF
+                    * Create short delay
+                    * Bring Request line low
+                    * Create short delay
+                    * Bring Request line high
+                    * Copy value from Data to second register
+                    * Create short delay
+            * Bring Request line low
+            * Clear Selector lines
+            * Clear Data lines
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode with two registers

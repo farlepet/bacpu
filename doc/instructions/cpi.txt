@@ -4,6 +4,23 @@ CPI instruction
 	The CPI instruction is used to gather various information about the CPU and
 closely connected parts.
 
+*** Instruction Flow ***
+
+CPI
+    * Check that both registers are valid
+        * False
+            * Increase PC
+            * Call exception
+        * True
+            * Check value of first register
+                * Invalid Value
+                    * Increase PC
+                    * Call exception
+                * Valid Value
+                    * Write value of internal CPU register to second register
+                    * Increase PC
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode with two registers
