@@ -13,18 +13,20 @@ Listing of all the instructions
 | 4   | CPI  | N/A         | CPU Information         | cpi.txt   |
 | 5   | INC  | N/A         | Increment Register      | inc.txt   |
 | 6   | DEC  | N/A         | Decrement Register      | dec.txt   |
-|     |      |             |                         |           |
-| 8   | ADD  | N/A         | Add to Register         | add.txt   |
-| 9   | SUB  | N/A         | Subtract from Register  | sub.txt   |
-| A   | DIV  | N/A         | Divide Register         | div.txt   |
-| B   | MUL  | N/A         | Multiply Register       | mul.txt   |
-| C   | SHL  | N/A         | Bitwise Shift Left      | shl.txt   |
-| D   | SHR  | N/A         | Bitwise Shift Right     | shr.txt   |
-| E   | JMP  | See jmp.txt | Jump                    | jmp.txt   |
-| F   | CMP  | Type of Cmp | Compare Registers       | cmp.txt   |
-| 10  | JOC  | See joc.txt | Jump on Condition       | joc.txt   |
-| 11  | PUSH | N/A         | Push item onto stack    | push.txt  |
-| 12  | POP  | N/A         | Pop item from stack     | pop.txt   |
+| 7   | ADD  | N/A         | Add to Register         | add.txt   |
+| 8   | SUB  | N/A         | Subtract from Register  | sub.txt   |
+| 9   | DIV  | N/A         | Divide Register         | div.txt   |
+| A   | MUL  | N/A         | Multiply Register       | mul.txt   |
+| B   | SHL  | N/A         | Bitwise Shift Left      | shl.txt   |
+| C   | SHR  | N/A         | Bitwise Shift Right     | shr.txt   |
+| D   | AND  | N/A         | And                     | and.txt   |
+| E   | OR   | N/A         | Or                      | or.txt    |
+| F   | XOR  | N/A         | Exclusive Or            | xor.txt   |
+| 10  | JMP  | See jmp.txt | Jump                    | jmp.txt   |
+| 11  | CMP  | Type of Cmp | Compare Registers       | cmp.txt   |
+| 12  | JOC  | See joc.txt | Jump on Condition       | joc.txt   |
+| 13  | PUSH | N/A         | Push item onto stack    | push.txt  |
+| 14  | POP  | N/A         | Pop item from stack     | pop.txt   |
 +-----+------+-------------+-------------------------+-----------+
 	NOTES:
 	 * Info Files are all in 'instructions/'
