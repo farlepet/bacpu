@@ -3,6 +3,20 @@ DIV instruction
 
 	Divides one register by another.
 
+*** Instruction Flow ***
+
+DIV
+    * Check if both registers are valid
+        * False
+            * Increase IP
+            * Call exception
+        * True
+            * Set ALU to division
+            * Divide two registers
+            * Set first register to the result
+            * Increase PC
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode with two registers

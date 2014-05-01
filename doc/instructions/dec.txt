@@ -15,6 +15,8 @@ DEC
             * Set ALU to subtraction
             * Set second ALU input to 1
             * Subtract
+            * Set Flags
+                * ALU carry == 1 -> Flags.Carry
             * Set register to result
             * Increase PC
 

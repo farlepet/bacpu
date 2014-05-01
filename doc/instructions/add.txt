@@ -12,10 +12,10 @@ ADD
             * Call exception
         * True
             * Set ALU to addition
-            * Add two values
-            * Set first register to the result from the ALU
+            * Add two registers
             * Set Flags
                 * ALU carry == 1 -> Flags.Carry
+            * Set first register to the result
             * Increase PC
 
 *** Instruction Format ***

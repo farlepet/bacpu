@@ -13,7 +13,7 @@ Listing of all the instructions
 | 4   | CPI  | N/A         | CPU Information         | cpi.txt   |
 | 5   | INC  | N/A         | Increment Register      | inc.txt   |
 | 6   | DEC  | N/A         | Decrement Register      | dec.txt   |
-| 7   | INV  | N/A         | Invert Register         | inv.txt   |
+|     |      |             |                         |           |
 | 8   | ADD  | N/A         | Add to Register         | add.txt   |
 | 9   | SUB  | N/A         | Subtract from Register  | sub.txt   |
 | A   | DIV  | N/A         | Divide Register         | div.txt   |

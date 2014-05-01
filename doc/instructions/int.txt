@@ -16,6 +16,28 @@ Src:
 	0) Register
 	1) Immediate
 
+*** Instruction Flow ***
+
+INT
+    * Check Src bit
+        * Src == 0
+            * Check that register is valid AND in range
+                * False
+                    * Increase IP
+                    * Call exception
+                * True
+                    * Call interrupt based on register value
+                    * Increase IP
+        * Src == 1
+            * Check that immediate is within range
+                * False
+                    * Increase IP
+                    * Call exception
+                * True
+                    * Call interrupt based on immediate value
+                    * Increase IP
+
+
 *** Instruction Format ***
 
 If Src == 0

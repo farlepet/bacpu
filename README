@@ -1,5 +1,0 @@
-BACPU -- Peter Farley
-
-	BACPU is a project oriented at creating a well-documented CPU that can be
-easily be simulated on top of today's CPU's. It is a 32-bit CPU with a small
-instruction set and able to handle up to 256 peripheral devices.
