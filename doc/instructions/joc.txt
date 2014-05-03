@@ -27,6 +27,66 @@ Planar:
 	1) Jump is to Planar memory
 
 
+*** Instruction Flow ***
+
+JOC
+    * Check that Flags.TRUE != False bit
+        * False
+            * Increase PC
+        * True
+            * Check Planar bit
+                * Planar == 0
+                    * Check first register is valid
+                        * False
+                            * Increase PC
+                            * Call exception
+                        * True
+                            * Check Short bit
+                                * Short == 0
+                                    * Check that the register value does not
+                                        exceed that amount of available memory
+                                        * False
+                                            * Increase PC
+                                            * Call exception
+                                        * True
+                                            * Set PC to register
+                                * Short == 1
+                                    * Check Backwards bit
+                                        * Backwards == 0
+                                            * Add value to PC
+                                        * Backwards == 1
+                                            * Subtract value from PC
+                                    * Check that current PC value is within range
+                                        * False
+                                            * Call exception (irrecoverable)
+                * Planar == 1
+                    * Check if both registers are valid
+                        * False
+                            * Increase PC
+                            * Call exception
+                        * True
+                            * Check Short bit
+                                * Short == 0
+                                    * Check that plane exists
+                                        * False
+                                            * Increase PC
+                                            * Call exception
+                                        * True
+                                            * Set CR to first register
+                                            * Set PC to second register
+                                * Sort == 1
+                                    * Check Backwards bit
+                                        * Backwards == 0
+                                            * Add first register to CR
+                                            * Add second register to PC
+                                        * Backwards == 1
+                                            * Subtract second register from CR
+                                            * Subtract second register from PC
+                                    * Check that plane CR exists
+                                        * False
+                                            * Call exception (irrecoverable)
+
+
 *** Instruction Format ***
 
 If Planar == 0 OR Short == 1
