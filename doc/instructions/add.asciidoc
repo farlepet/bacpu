@@ -1,0 +1,24 @@
+ADD instruction
+===============
+
+	Adds one register to another register, and stores the value in the first
+register.
+
+Instruction Flow
+----------------
+    * Check that both registers are valid
+    ** False
+    *** Increase PC
+    *** Call exception
+    * Set ALU to addition
+    * Add two registers
+    * Set Flags
+    ** ALU carry == 1 -> Flags.Carry
+    * Set first register to the result
+    * Increase PC
+
+Instruction Format
+------------------
+    * OpCode with two registers
+	** First Register:   Augend and Sum
+	** Second Register:  Addend
