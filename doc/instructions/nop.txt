@@ -5,6 +5,12 @@ NOP instruction
 instruction at all. All it does is cause a small delay and allow from some
 operations to process.
 
+*** Instruction Flow ***
+
+NOP
+    * Increase IP
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode only

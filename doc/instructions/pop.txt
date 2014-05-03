@@ -4,6 +4,23 @@ POP instruction
 	The POP instruction pops the top DWORD of the stack into a register and
 decrements SP by 4.
 
+*** Instruction Flow ***
+
+POP
+    * Check that register is valid
+        * False
+            * Increase PC
+            * Call exception
+    * Check that SP != 0
+        * False
+            * Increase PC
+            * Call exception
+    * Decrement SP by 4
+    * Copy value pointed to by SP into cache
+    * Set register to cache value
+    * Increase SP
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode with two registers

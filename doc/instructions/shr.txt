@@ -3,6 +3,20 @@ SHR instruction
 
 	Shift the bits in a register left by a specified amount.
 
+*** Instruction Flow ***
+
+SHR
+    * Check that both registers are valid
+        * False
+            * Increase PC
+            * Call exception
+        * True
+            * Set ALU to SHR
+            * Shift first register right by the value of second register
+            * Set first register to the result
+            * Increase PC
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode with two registers

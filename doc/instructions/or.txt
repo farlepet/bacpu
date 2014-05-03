@@ -3,6 +3,20 @@ OR instruction
 
     Ors two registers.
 
+*** Instruction Flow ***
+
+OR
+    * Check that both registers are valid
+        * False
+            * Increase PC
+            * Call exception
+        * True
+            * Set ALU to OR
+            * OR two registers
+            * Set first register to the result
+            * Increase PC
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode with two registers

@@ -3,6 +3,20 @@ AND instruction
 
     Ands two registers.
 
+*** Instruction Flow ***
+
+AND
+    * Check that both registers are valid
+        * False
+            * Increase PC
+            * Call exception
+        * True
+            * Set ALU to AND
+            * AND two registers
+            * Set first register to the result
+            * Increase PC
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode with two registers

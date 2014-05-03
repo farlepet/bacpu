@@ -3,7 +3,21 @@ MUL instruction
 
 	Multiply one register by another.
 
-***Instruction Formar ***
+*** Instruction Flow ***
+
+MUL
+    * Check that both registers are valid
+        * False
+            * Increase PC
+            * Call exception
+        * True
+            * Set ALU to multiplication
+            * Multiply two registers
+            * Set first register to the result
+            * Increase PC
+
+
+***Instruction Format ***
 
 	Instruction Format: OpCode with two registers
 	First Register:     Multiplicand and Product

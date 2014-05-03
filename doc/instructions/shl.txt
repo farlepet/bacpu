@@ -3,6 +3,20 @@ SHL instruction
 
 	Shifts the bits in a register left by a specified amount.
 
+*** Instruction Flow ***
+
+SHL
+    * Check that both registers are valid
+        * False
+            * Increase PC
+            * Call exception
+        * True
+            * Set ALU to SHL
+            * Shift first register left by the value of second register
+            * Set first register to the result
+            * Increase PC
+
+
 *** Instruction Format ***
 
 	Instruction Format: OpCode with two registers
