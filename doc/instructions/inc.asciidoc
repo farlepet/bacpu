@@ -1,0 +1,26 @@
+INC instruction
+===============
+
+	The INC instruction just increments a register. It is one of the simpler
+BACPU instructions.
+
+Instruction Flow
+----------------
+    * Check that first register is valid
+    ** False
+    *** Increase IP
+    *** Call exception
+    * Set ALU to addition
+    * Set second ALU input to 1
+    * Add
+    * Set flags
+    ** ALU carry == 1 -> Flags.Carry
+    * Set register to result
+    * Increase IP
+
+
+Instruction Format
+------------------
+    * OpCode with two registers
+	* First Register:   Register to increment
+	* Second Register:  Unused

@@ -1,0 +1,23 @@
+DIV instruction
+===============
+
+	Divides one register by another.
+
+Instruction Flow
+----------------
+
+    * Check if both registers are valid
+    ** False
+    *** Increase PC
+    *** Call exception
+    * Set ALU to division
+    * Divide two registers
+    * Set first register to the result
+    * Increase PC
+
+
+Instruction Format
+------------------
+    * OpCode with two registers
+	** First Register:  Divedend and Quotient
+	** Second Register: Divisor
