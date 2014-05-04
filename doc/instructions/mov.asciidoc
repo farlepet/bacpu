@@ -1,0 +1,129 @@
+MOV instruction
+===============
+
+	The MOV instruction moves data from one place to another. It can handle
+3 sizes, BYTE, WORD, DWORD.
+
+
+Instruction Info layout
+-----------------------
+[width="33%",cols="^1,^2,3"]
+|============================================
+| Src (2 bits) | Dest (1 bit) | Size (2 bits)
+|============================================
+
+Size:
+[start=0]
+ . BYTE
+ . WORD
+ . DWORD
+ . N/A
+
+DEST:
+[start=0]
+ . Register
+ . Memory
+
+SRC:
+[start=0]
+ . Register
+ . Memory
+ . Immediate
+ . N/A
+
+	SRC and DEST cannot both be Memory, if this occurs, an exception will
+be triggered. If interrupts are not properly setup, this could cause the CPU to
+restart, so it would be wise to be careful not to do this.
+
+
+Instruction Flow
+----------------
+[options="compact"]
+    * Check Destination bit
+    ** Set word size to Size
+    ** Dest == 0
+    *** Check SRC
+    **** SRC == 0
+    ***** Check both registers are valid
+            . False
+            .. Set word size to DWORD
+            .. Increase PC
+            .. Call exception
+    ***** Set destination register to source register
+    **** SRC == 1
+    ***** Check register is valid
+            . False
+            .. Set word size to DWORD
+            .. Increase PC
+            .. Call exception
+    ***** Set destination register to immediate value
+    **** SRC == 2
+    ***** Check that register is valid
+            . False
+            .. Set word size to DWORD
+            .. Increase PC
+            .. Call exception
+    ***** Check that memory pointer is valid
+            . False
+            .. Set word size to DWORD
+            .. Increase PC
+            .. Call exception
+    ***** Place value of memory into cache
+    ***** Set register value to the value in the cache
+    **** SRC == 3
+    ***** Set word size to DWORD
+    ***** Call exception
+    ** Dest == 1
+    *** Check SRC
+    **** SRC == 0
+    ***** Check register is valid
+            . False
+            .. Set word size to DWORD
+            .. Increase PC
+            . Call exception
+    ***** Move register value to cache
+    **** SRC == 1
+    ***** Set word size to DWORD
+    ***** Call exception
+    **** SRC == 2
+    ***** Move immediate value to cache
+    **** SRC == 3
+    ***** Set word size to DWORD
+    ***** Call exception
+    *** Check that destination memory is within valid memory
+    **** False
+    ***** Increase PC
+    ***** Call exception
+    *** Write cache to memory
+    *** Set word size to DWORD
+                    
+
+
+
+Instruction Format
+------------------
+[options="compact"]
+    * If DEST == 0
+	** If SRC == 0
+	*** OpCode with two registers
+	**** First Register:    Source
+	**** Second Register:   Destination
+	** Else If SRC == 1
+	*** OpCode with Immediate and Register
+	**** Immediate:  Pointer to Source in Memory
+	**** Register:   Destination
+	** Else If SRC == 2
+	*** OpCode with Immediate and Register
+	**** Immediate:	Source value
+    **** Register:	Destination
+    * Else If DEST == 1
+	** If SRC == 0
+	*** OpCode with Immediate and Register
+	**** Immediate:  Pointer to Destination in Memory
+	**** Register:	Source:
+	** Else If SRC == 1
+	*** Invalid Opcode. Do not use.
+	** Else If SRC == 2
+	*** Opcode with two Immediates
+	**** First Immediate:    Source Value
+	**** Second Immediate:   Pointer to Destination in Memory

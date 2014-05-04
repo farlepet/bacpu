@@ -1,0 +1,23 @@
+SUB instruction
+===============
+
+	Subtracts one register from another.
+
+Instruction Flow
+----------------
+    * Check that both registers are valid
+    ** False
+    *** Increase PC
+    *** Call exception
+    * Set ALU to subtraction
+    * Subtract two registers
+    * Set Flags
+    ** ALU carry == 1 -> Flags.Carry
+    * Set first register to the result
+    * Increase PC
+
+
+Instruction Format
+	* OpCode with two registers
+	** First Register:     Minuend and Difference
+	** Second Register:    Subtrahend

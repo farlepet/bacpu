@@ -1,0 +1,21 @@
+PUSH instruction
+================
+
+	The PUSH instruction pushes a DWORD unto the stack and increments SP by 4.
+
+Instruction Flow
+================
+    * Check that register is valid
+    ** False
+    *** Increase PC
+    *** Call exception
+    * Move register value to cache
+    * Write cache to memory pointed to by SP
+    * Increase PC
+
+
+Instruction Format
+------------------
+	* OpCode with two registers
+	** First Register:     Data to push on the stack
+	** Second Register:    Unused
