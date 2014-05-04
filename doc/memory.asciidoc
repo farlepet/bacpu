@@ -1,18 +1,21 @@
 Description of the BSCPU's memory
----------------------------------
+=================================
 
-*** Memory Layouts ***
+Memory Layouts
+--------------
 
-The layout of memory is controled by the MEM_FLG section of FLGS. (See flags.txt)
+    The layout of memory is controled by the MEM_FLG section of FLGS. (See flags.txt)
 
--- Linear Memory --
+Linear Memory
+~~~~~~~~~~~~~
 
 	With linear memory, the memory is laid out as one uninterrupted block of
 memory. This is the simplest form of memory, but bear in mind there is no
 "paging" mechamism.
 
 
--- Planar Memory --
+Planar Memory
+~~~~~~~~~~~~~
 
 	With planar memory, the memory is represented as a series of 'planes.' These
 planes are selected by DR and CR. (for Data Region and Code Region, respectively.)

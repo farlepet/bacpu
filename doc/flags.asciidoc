@@ -1,0 +1,22 @@
+Description of the functions of the BACPU's 'FLG' register
+==========================================================
+
+Layout of Flags register
+------------------------
+[width="33%",cols="^1,^1,^1",options="header"]
+|==================================
+| MSB       |           | LSB
+| T (1 bit) | M (1 bit) | C (1 bit)
+|==================================
+
+.C - Carry
+    * Set when ADD overflows or SUB underflows
+
+.M - Memory Mode
+    * Selects Linear or Planar memory
+    * Linear = 0, Planar = 1
+    * When this is changed, the CPU sets PC and CR accordingly.
+
+.T - TRUE
+    * Set when the outcome of the CMP instruction is TRUE, otherwise cleared
+    * Used by JOC

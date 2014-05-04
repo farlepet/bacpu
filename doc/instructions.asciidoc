@@ -1,0 +1,32 @@
+Listing of all the instructions
+===============================
+
+List of Instructions
+--------------------
+
+.A list of instructions
+[options="header"]
+|==================================================================================
+| Num | Name | Inst. Frmt  | Description             | Info File (in instructions/)
+| 0   | NOP  | N/A         | No Operation            | nop.asciidoc               
+| 1   | INT  | Imm. or Reg | Trigger an Interrupt    | int.asciidoc               
+| 2   | COMM | In or Out   | Communicate with Device | comm.asciidoc              
+| 3   | MOV  | Imm/Reg/Sz  | Move Data               | mov.asciidoc               
+| 4   | CPI  | N/A         | CPU Information         | cpi.asciidoc               
+| 5   | INC  | N/A         | Increment Register      | inc.asciidoc                 
+| 6   | DEC  | N/A         | Decrement Register      | dec.asciidoc                 
+| 7   | ADD  | N/A         | Add to Register         | add.asciidoc                 
+| 8   | SUB  | N/A         | Subtract from Register  | sub.asciidoc                 
+| 9   | DIV  | N/A         | Divide Register         | div.asciidoc                 
+| A   | MUL  | N/A         | Multiply Register       | mul.asciidoc                 
+| B   | SHL  | N/A         | Bitwise Shift Left      | shl.asciidoc                 
+| C   | SHR  | N/A         | Bitwise Shift Right     | shr.asciidoc                 
+| D   | AND  | N/A         | And Register            | and.asciidoc                 
+| E   | OR   | N/A         | Or Register             | or.asciidoc                  
+| F   | XOR  | N/A         | Exclusive Or Register   | xor.asciidoc                 
+| 10  | JMP  | See jmp.txt | Jump                    | jmp.asciidoc                 
+| 11  | CMP  | Type of Cmp | Compare Registers       | cmp.asciidoc                 
+| 12  | JOC  | See joc.txt | Jump on Condition       | joc.asciidoc                 
+| 13  | PUSH | N/A         | Push item onto stack    | push.asciidoc                
+| 14  | POP  | N/A         | Pop item from stack     | pop.asciidoc                 
+|==================================================================================

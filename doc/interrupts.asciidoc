@@ -1,0 +1,19 @@
+Desctiption of BACPU interrupts
+===============================
+    
+    The interrupt vectors for the BACPU are in the first 4096 bytes of memory.
+
+
+Interrupt vector format
+-----------------------
+
+.Interrupt vector format
+[width="33%"]
+|===========================
+| Pointer (4B) |
+| Region (4B)  | Offset (2B)
+|===========================
+	
+    Every interrupt vector is 10 bytes. They consist of two pointers, the second
+one is not zero only is there is a different version of the interrupt for planar
+memory mode.
