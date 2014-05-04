@@ -1,7 +1,7 @@
 Documentation on BACPU peripherals
 ==================================
 
-    All peripherals are connected to the BACPU's main bus. These peripherals
+All peripherals are connected to the BACPU's main bus. These peripherals
 only accept input or generate output if they are requested to do so by the
 BACPU. When requesting information from a peripheral, the BACPU must first send
 a 0xFFFFFFFF to the device, as this is the data request function.
@@ -37,9 +37,9 @@ BACPU Peripheral Interface Schematic
 Peripheral Header Information (PHI)
 -----------------------------------
 
-    Current PHI version as of this document: 0x00000000
+Current PHI version as of this document: 0x00000000
 
-    The first 256 functions of the Peripheral must be reserved to return info
+The first 256 functions of the Peripheral must be reserved to return info
 about that particular peripheral, called the Peripheral Header Information (PHI)
 Here is the format of the PHI:
 

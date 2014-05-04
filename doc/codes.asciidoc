@@ -4,17 +4,15 @@ Various codes used by BACPU
 Manufacture codes
 -----------------
 
-This is a list of known manufacture codes:
-	
-    * 0xFEED4096 - farlepet (Peter Farley)
+.This is a list of known manufacture codes:
+	* 0xFEED4096 - farlepet (Peter Farley)
 
 
 Peripheral Codes
 ----------------
 
-This is a list of known peripheral device types:
-	
-    * 0x00000000 - Display
+.This is a list of known peripheral device types:
+	* 0x00000000 - Display
 		** 0x00000000 - Text Display
 		** 0x00000001 - Video Display
 		** 0x00000002 - Text and Video Display
