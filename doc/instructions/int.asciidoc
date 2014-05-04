@@ -1,0 +1,47 @@
+INT instruction
+===============
+
+	The INT instruction issues an interrupt. Valid interrupts are between 0 and
+256, inclusive. See interrupts.txt
+
+Instruction Info layout
+-----------------------
+
+[width="33%"]
+|============
+| Src (1 bit)
+|============
+
+Src:
+[start=0]
+	. Register
+	. Immediate
+
+Instruction Flow
+----------------
+    * Check Src bit
+    ** Src == 0
+    *** Check that register is valid AND in range
+    **** False
+    ***** Increase IP
+    ***** Call exception
+    *** Call interrupt based on register value
+    *** Increase IP
+    ** Src == 1
+    *** Check that immediate is within range
+    **** False
+    ***** Increase IP
+    ***** Call exception
+    *** Call interrupt based on immediate value
+    *** Increase IP
+
+
+Instruction Format
+------------------
+    * Src == 0
+	** OpCode with two registers
+	*** First Register:  Interrupt
+	*** Second Register: Unused
+    * Else If Src == 1
+	** OpCode and Immediate 
+	*** Immediate: Interrupt

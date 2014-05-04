@@ -1,0 +1,93 @@
+JMP instruction
+===============
+
+	Jump to a specified location in memory.
+
+Instruction Info Layout
+-----------------------
+
+[width="33%",cols="^1,^2,3"]
+|===================================================
+| Short (1 bit) | Backwards (1 bit) | Planar (1 bit)
+|===================================================
+
+Short:
+[start=0]
+	. Long Jump
+	. Short Jump
+
+Backwards:
+[start=0]
+	. Short Jump is Forwards
+	. Short Jump is Backwards
+
+Planar:
+[start=0]
+	. Jump is to Linear memory
+	. Jump is to Planar memory
+
+
+Instruction Flow
+----------------
+[options="compact"]
+    * Check Planar bit
+    ** Planar == 0
+    *** Check first register is valid
+    **** False
+    ***** Increase PC
+    ***** Call exception
+    *** Check Short bit
+    **** Short == 0
+    ***** Check that the register value does not exceed that
+            amount of available memory
+    . False
+    .. Increase PC
+    .. Call exception
+    . True
+    .. Set PC to register
+    **** Short == 1
+    ***** Check Backwards bit
+    . Backwards == 0
+    .. Add value to PC
+    . Backwards == 1
+    .. Subtract value from PC
+    ***** Check that current PC value is within range
+    . False
+    .. Call exception (irrecoverable)
+    ** Planar == 1
+    *** Check if both registers are valid
+    **** False
+    ***** Increase PC
+    ***** Call exception
+    *** Check Short bit
+    **** Short == 0
+    ***** Check that plane exists
+    . False
+    .. Increase PC
+    .. Call exception
+    . True
+    .. Set CR to first register
+    .. Set PC to second register
+    **** Sort == 1
+    ***** Check Backwards bit
+    . Backwards == 0
+    .. Add first register to CR
+    .. Add second register to PC
+    . Backwards == 1
+    .. Subtract second register from CR
+    .. Subtract second register from PC
+    ***** Check that plane CR exists
+    . False
+    .. Call exception (irrecoverable)
+
+
+Instruction Format
+------------------
+    * If Planar == 0
+    ** OpCode with two registers
+	*** First Register:     Pointer to location to jump to
+	*** Second Register:    Unused
+    * Else If Planar == 1
+	** Instruction Format: OpCode with two registers
+	*** First Register:     Plane to jump to
+	*** Second Register:    Offest within the plane to jump to
