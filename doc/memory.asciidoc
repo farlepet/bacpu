@@ -26,3 +26,88 @@ planar mode, it resets to 0, and CR is increased by 1.
 In planar memory mode, only the first 12 bits of SP is used, and data is
 accessed the same way.
 
+
+
+
+
+Memory Access
+-------------
+
+Memory connected to the BACPU is accessed the same to matter which layout is
+selected. To the BACPU memory is still accessed in a linear fashion.
+
+Schematic
+~~~~~~~~~
+
+-------------------------
++---------------+            +------------+
+|  BACPU        |  32        |        MMU |        +--------+
+|     Address/32|==/=========|            |        |        |
+|               |  32        |            |   X    | Memory |
+|        Data/32|==/=========|            |===/====|        |
+|               |  6         |            |        |        |
+|         Info/5|==/=========|            |        |        |
+|               |            |            |        +--------+
++---------------+            +------------+
+
+NOTE: Address may be less than 32 bits if the CPU does not support that much
+memory, or if the same is true for the MMU.
+
+NOTE: The number and function of lines between memory and MMU is dependant on
+the MMU and memory in use.
+-------------------------
+
+Line Descriptions
+~~~~~~~~~~~~~~~~~
+
+.Address (Output)
+    * 32 bits
+    * Represents the requested address
+
+.Data (Bidirectional)
+    * 32 bits
+    * Data Input and Output To and From memory
+
+.Info (Inputs and Outputs)
+    * 6 bits
+    * What operation to do on memory
+    * Lines:
+        ** Enable (Output)
+            *** 0 = Disable
+            *** 1 = Enable
+        ** Write (Output)
+            *** 0 = Read
+            *** 1 = Write
+        ** Size (2 lines) (Output)
+            *** 0 = Nibble
+            *** 1 = Byte
+            *** 2 = Word
+            *** 3 = Long
+        ** Existant (Input)
+            *** 0 = Memory pointed to by Address is non-existant
+            *** 1 = Memory pointed to by Address is existant
+        ** Complete (Input)
+            *** 0 = Operation is pending
+            *** 1 = Operation is complete
+
+How to access memory
+~~~~~~~~~~~~~~~~~~~~
+    * Set Address to the correct address
+    * Check Info.Existant
+        ** Low
+            *** Stop accessing memory
+            *** Report error
+    * Set Info.Size to size of data
+    * If Writing to memory
+        ** Set Info.Write to 1
+        ** Set Data to value to write
+        ** Bring Info.Enable high
+        ** Wait for Info.Complete to go high
+        ** Bring Info.Enable low
+    * If Reading from memory
+        ** Set Info.Write to 0
+        ** Set Data as input
+        ** Bring Info.Enable high
+        ** Wait for Info.Complete to go high
+        ** Read data on Data
+        ** Bring Info.Enable low
