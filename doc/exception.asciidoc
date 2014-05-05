@@ -1,0 +1,17 @@
+BACPU exceptions
+================
+The BACPU exception vectors are placed right after the interrupt vectors, at
+address 2560 and beyond. There are 128 exception slots (Most are unused and are
+for further expansion.)
+
+Exception vector format
+-----------------------
+The format of an exception vector is exactly the same as an interrupt vector.
+
+.Exception vector format
+[width="33%"]
+|===========================
+| Pointer (4B) |
+| Region (4B)  | Offset (2B)
+|===========================
+

@@ -1,6 +1,6 @@
-Desctiption of BACPU interrupts
-===============================
-The interrupt vectors for the BACPU are in the first 4096 bytes of memory.
+BACPU interrupts
+================
+The interrupt vectors for the BACPU are in the first 2560 bytes of memory.
 
 
 Interrupt vector format

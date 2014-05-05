@@ -1,8 +1,8 @@
 INT instruction
 ===============
-
-	The INT instruction issues an interrupt. Valid interrupts are between 0 and
-256, inclusive. See interrupts.txt
+The INT instruction issues an interrupt or calls an exception. Valid
+interrupts are between 0 and 255, inclusive. See interrupts.txt Exceptions are
+called by giving INT a number between 256 and 384.
 
 Instruction Info layout
 -----------------------
@@ -25,14 +25,14 @@ Instruction Flow
     **** False
     ***** Increase IP
     ***** Call exception
-    *** Call interrupt based on register value
+    *** Call interrupt/exception based on register value
     *** Increase IP
     ** Src == 1
     *** Check that immediate is within range
     **** False
     ***** Increase IP
     ***** Call exception
-    *** Call interrupt based on immediate value
+    *** Call interrupt/exception based on immediate value
     *** Increase IP
 
 
