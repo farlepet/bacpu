@@ -1,7 +1,6 @@
 SUB instruction
 ===============
-
-	Subtracts one register from another.
+Subtracts one register from another.
 
 Instruction Flow
 ----------------
@@ -18,6 +17,7 @@ Instruction Flow
 
 
 Instruction Format
-	* OpCode with two registers
+------------------
+    * OpCode with two registers
 	** First Register:     Minuend and Difference
 	** Second Register:    Subtrahend

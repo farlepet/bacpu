@@ -1,8 +1,7 @@
 MOV instruction
 ===============
-
-	The MOV instruction moves data from one place to another. It can handle
-3 sizes, BYTE, WORD, DWORD.
+The MOV instruction moves data from one place to another. It can handle 3 sizes,
+BYTE, WORD, DWORD.
 
 
 Instruction Info layout
@@ -31,8 +30,8 @@ SRC:
  . Immediate
  . N/A
 
-	SRC and DEST cannot both be Memory, if this occurs, an exception will
-be triggered. If interrupts are not properly setup, this could cause the CPU to
+SRC and DEST cannot both be Memory, if this occurs, an exception will be
+triggered. If interrupts are not properly setup, this could cause the CPU to
 restart, so it would be wise to be careful not to do this.
 
 

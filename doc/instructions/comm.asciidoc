@@ -1,7 +1,6 @@
 COMM instruction
 ================
-
-	The COMM instruction is used to communicate with peripherals. It handles
+The COMM instruction is used to communicate with peripherals. It handles
 both input and output.
 
 

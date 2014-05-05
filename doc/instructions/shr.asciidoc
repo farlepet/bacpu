@@ -1,7 +1,6 @@
 SHR instruction
 ===============
-
-	Shift the bits in a register left by a specified amount.
+Shift the bits in a register left by a specified amount.
     
 Instruction Flow
 ----------------

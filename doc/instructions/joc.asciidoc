@@ -1,8 +1,7 @@
 JOC instruction
 ---------------
-
-	Jump to a specified location in memory if the TRUE flag in FLG is set or
-not, depending on `False.`
+Jump to a specified location in memory if the TRUE flag in FLG is set or not,
+depending on `False.`
 
 Instruction Info Layout
 -----------------------

@@ -1,7 +1,6 @@
 ADD instruction
 ===============
-
-	Adds one register to another register, and stores the value in the first
+Adds one register to another register, and stores the value in the first
 register.
 
 Instruction Flow

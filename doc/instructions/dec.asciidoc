@@ -1,7 +1,6 @@
 DEC instruction
 ===============
-
-	The DEC instruction decrements a register. It is exactly the same is the INC
+The DEC instruction decrements a register. It is exactly the same is the INC
 instruction except it decrements instead of increments.
 
 Instruction Flow

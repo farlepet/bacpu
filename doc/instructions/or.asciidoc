@@ -1,7 +1,6 @@
 OR instruction
 ==============
-
-    Ors two registers.
+Ors two registers.
 
 Instruction Flow
 ----------------

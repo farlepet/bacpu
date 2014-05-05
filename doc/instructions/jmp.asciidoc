@@ -1,7 +1,6 @@
 JMP instruction
 ===============
-
-	Jump to a specified location in memory.
+Jump to a specified location in memory.
 
 Instruction Info Layout
 -----------------------

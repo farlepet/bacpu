@@ -1,7 +1,6 @@
 XOR instruction
 ===============
-
-    Xors two registers.
+Xors two registers.
 
 Instruction Flow
 ----------------

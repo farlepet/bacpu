@@ -1,7 +1,6 @@
 DIV instruction
 ===============
-
-	Divides one register by another.
+Divides one register by another.
 
 Instruction Flow
 ----------------

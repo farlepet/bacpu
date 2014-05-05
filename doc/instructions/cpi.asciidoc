@@ -1,7 +1,6 @@
 CPI instruction
 ===============
-
-	The CPI instruction is used to gather various information about the CPU and
+The CPI instruction is used to gather various information about the CPU and
 closely connected parts.
 
 Instruction Flow

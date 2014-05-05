@@ -1,7 +1,6 @@
 AND instruction
 ===============
-
-    Ands two registers.
+Ands two registers.
 
 Instruction Flow
 ----------------

@@ -1,7 +1,6 @@
 CMP Instruction
 ===============
-
-	Compare two values OR if a certain condition is met. If the outcome is TRUE,
+Compare two values OR if a certain condition is met. If the outcome is TRUE,
 the TRUE flag is set in FLG.
 
 Instruction Info layout
@@ -13,11 +12,11 @@ Instruction Info layout
 
 Compare
 ~~~~~~~
-    Wether ot not to check a comparison. (as opposed to a condition)
+Whether ot not to check a comparison. (as opposed to a condition)
 
 Comparison/Condition
 ~~~~~~~~~~~~~~~~~~~~
-    What comparison or condition to check
+What comparison or condition to check
 
 [width="33%",cols="^1,^2,3",options="header"]
 |===============================================

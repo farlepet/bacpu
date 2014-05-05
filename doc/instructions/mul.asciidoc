@@ -1,7 +1,6 @@
 MUL instruction
 ===============
-
-	Multiply one register by another.
+Multiply one register by another.
 
 Instruction Flow
 ----------------

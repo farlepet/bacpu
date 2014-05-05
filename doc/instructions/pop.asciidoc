@@ -1,7 +1,6 @@
 POP instruction
 ===============
-
-	The POP instruction pops the top DWORD of the stack into a register and
+The POP instruction pops the top DWORD of the stack into a register and
 decrements SP by 4.
 
 Instruction Flow
