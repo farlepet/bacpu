@@ -1,7 +1,20 @@
 #include <stdio.h>
 
+#include <cpu.h>
+
 int main(int argc, char **argv)
 {
-	// No documentation has even been created yet! So there is no current hurry
-	//   to create a simulator!!!
+	(void)argc;
+    (void)argv;
+
+    size_t memsz = 4096*4; // Temporary
+    uint32_t entryp = 4096;
+
+    struct cpu bacpu;
+
+    if(init_memory(&bacpu, memsz)) return 1;
+
+    if(init_registers(&bacpu, entryp)) return 1;
+
+    return 0;
 }

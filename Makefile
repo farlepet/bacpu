@@ -3,7 +3,7 @@ SRC     = $(MAINDIR)/src
 INC     = $(MAINDIR)/inc
 
 CSRC    = $(wildcard $(SRC)/*.c)
-OBJ     = $(patsubst %.c,%.o,%(CSRC))
+OBJ     = $(patsubst %.c,%.o,$(CSRC))
 EXEC    = $(MAINDIR)/bacpu
 
 CFLAGS  = -Wall -Wextra -Werror -I $(INC)
