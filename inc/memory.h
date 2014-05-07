@@ -29,5 +29,6 @@ struct mmu // Memory Management Unit
 
 
 int init_memory(struct cpu *bacpu, size_t length);
+int deinit_memory(struct cpu *bacpu);
 
 #endif

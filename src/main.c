@@ -16,5 +16,9 @@ int main(int argc, char **argv)
 
     if(init_registers(&bacpu, entryp)) return 1;
 
+    // Emulate CPU here...
+
+    if(deinit_memory(&bacpu)) return 1;
+
     return 0;
 }

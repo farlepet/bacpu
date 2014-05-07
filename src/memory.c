@@ -23,3 +23,12 @@ int init_memory(struct cpu *bacpu, size_t length)
 
     return 0;
 }
+
+int deinit_memory(struct cpu *bacpu)
+{
+    if(bacpu == NULL) { FATAL("deinit_memory: bacpu == NULL\n"); return 1; }
+
+    free(bacpu->mm.memory);
+
+    return 0;
+}
