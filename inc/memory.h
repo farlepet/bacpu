@@ -9,14 +9,15 @@
 #define MMU_INFO_EXIST    16
 #define MMU_INFO_COMPLETE 32
 
-
-struct memory // Memory Unit within CPU
+// Memory Unit within CPU
+struct memory
 {
     uint32_t address; // Address of memory
     uint32_t cache;   // CPU internal cache for dealing with memory access
 };
 
-struct mmu // Memory Management Unit
+// Memory Management Unit (MMU)
+struct mmu
 {
     uint32_t address; // Address lines
     uint32_t data;    // Data lines
@@ -27,8 +28,10 @@ struct mmu // Memory Management Unit
     uint32_t *memory; // Pointer to memory
 };
 
-
+// Initialize CPU memory controllers and allocate memory
 int init_memory(struct cpu *bacpu, size_t length);
+
+// Deallocate allocated memory
 int deinit_memory(struct cpu *bacpu);
 
 #endif

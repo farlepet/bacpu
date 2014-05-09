@@ -17,16 +17,14 @@ List of Instructions
 | 6   | DEC  | N/A         | Decrement Register      | dec.asciidoc                 
 | 7   | ADD  | N/A         | Add to Register         | add.asciidoc                 
 | 8   | SUB  | N/A         | Subtract from Register  | sub.asciidoc                 
-| 9   | DIV  | N/A         | Divide Register         | div.asciidoc                 
-| A   | MUL  | N/A         | Multiply Register       | mul.asciidoc                 
-| B   | SHL  | N/A         | Bitwise Shift Left      | shl.asciidoc                 
-| C   | SHR  | N/A         | Bitwise Shift Right     | shr.asciidoc                 
-| D   | AND  | N/A         | And Register            | and.asciidoc                 
-| E   | OR   | N/A         | Or Register             | or.asciidoc                  
-| F   | XOR  | N/A         | Exclusive Or Register   | xor.asciidoc                 
-| 10  | JMP  | See jmp.txt | Jump                    | jmp.asciidoc                 
-| 11  | CMP  | Type of Cmp | Compare Registers       | cmp.asciidoc                 
-| 12  | JOC  | See joc.txt | Jump on Condition       | joc.asciidoc                 
-| 13  | PUSH | N/A         | Push item onto stack    | push.asciidoc                
-| 14  | POP  | N/A         | Pop item from stack     | pop.asciidoc                 
+| 9   | SHL  | N/A         | Bitwise Shift Left      | shl.asciidoc                 
+| A   | SHR  | N/A         | Bitwise Shift Right     | shr.asciidoc                 
+| B   | AND  | N/A         | And Register            | and.asciidoc                 
+| C   | OR   | N/A         | Or Register             | or.asciidoc                  
+| D   | XOR  | N/A         | Exclusive Or Register   | xor.asciidoc                 
+| E   | JMP  | See jmp.txt | Jump                    | jmp.asciidoc                 
+| F   | CMP  | Type of Cmp | Compare Registers       | cmp.asciidoc                 
+| 10  | JOC  | See joc.txt | Jump on Condition       | joc.asciidoc                 
+| 11  | PUSH | N/A         | Push item onto stack    | push.asciidoc                
+| 12  | POP  | N/A         | Pop item from stack     | pop.asciidoc                 
 |==================================================================================

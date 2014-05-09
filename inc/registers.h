@@ -3,12 +3,11 @@
 
 #include <stdint.h>
 
-#include <cpu.h>
-
 #define FLAG_CARRY 1 // Carry Flag
 #define FLAG_MMODE 2 // Memory Mode
 #define FLAG_TRUE  4 // True Flag (Used by CMP and JOC)
 
+// BACPU registers
 struct registers
 {
     uint32_t r0, r1, r2,  r3,  r4,  r5,  r6,  r7;  // General-Purpose
@@ -19,6 +18,7 @@ struct registers
     uint32_t sp;                                   // Stack Pointer
 };
 
+// Set all registers to their defaults and sets PC to entrypoint
 int init_registers(struct cpu *bacpu, uint32_t entrypoint);
 
 #endif // REGISTERS_H

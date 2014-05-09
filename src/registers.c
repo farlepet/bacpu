@@ -4,8 +4,11 @@
 
 int init_registers(struct cpu *bacpu, uint32_t entrypoint)
 {
+    // If either of these are true, something terrible happened
     if(bacpu == NULL) { FATAL("init_registers: bacpu == NULL\n"); return 1; }
     if(entrypoint < 4096) { FATAL("init_registers: invalid entrypoint!\n"); return 1; }
+
+    INFO("Initializing BACPU Registers\n");
 
     // General-Purpose registers start uninitialized
 
