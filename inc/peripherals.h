@@ -7,7 +7,7 @@
 struct peripheral_con
 {
     uint8_t  selector; // Which device to communicate with
-    uint8_t  request;  // Whether or not you are requesting info or to send info
+    bool     request;  // Whether or not you are requesting info or to send info
     uint32_t data;     // Data I/O
 };
 
@@ -15,9 +15,9 @@ struct peripheral_con
 // Peripheral Device
 struct peripheral_dev
 {
-    uint8_t  enable; // Wheter or not the device is currently being used
+    bool     enable; // Wheter or not the device is currently being used
     uint32_t data;   // Data I/O
-    uint8_t  irq;    // IRQ line
+    bool     irq;    // IRQ line
 };
 
 // Peripheral PHI

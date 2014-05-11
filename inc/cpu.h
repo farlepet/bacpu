@@ -1,12 +1,16 @@
 #ifndef CPU_H
 #define CPU_H
 
+#include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
+#include <stdio.h>
 
 struct cpu; // Required so that the files below can be included
 
 // BACPU includes
 #include <peripherals.h>
+#include <interrupts.h>
 #include <registers.h>
 #include <memory.h>
 #include <alu.h>

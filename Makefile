@@ -6,7 +6,7 @@ CSRC    = $(wildcard $(SRC)/*.c)
 OBJ     = $(patsubst %.c,%.o,$(CSRC))
 EXEC    = $(MAINDIR)/bacpu
 
-CFLAGS  = -Wall -Wextra -Werror -I $(INC)
+CFLAGS  = -Wall -Wextra -Werror -std=c99 -I $(INC)
 
 all: $(OBJ)
 	@echo "  Creating CPU binary"

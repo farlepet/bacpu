@@ -2,6 +2,9 @@
 
 #include <cpu.h>
 
+size_t memsize      = 1024 * 16; // 16 KB
+uint32_t entrypoint = 4096;
+
 int main(int argc, char **argv)
 {
 	(void)argc;
@@ -9,15 +12,13 @@ int main(int argc, char **argv)
 
     INFO("BACPU emulator -- (c) 2014 Peter Farley\n");
 
-    size_t memsz = 4096*4; // Temporary
-    uint32_t entryp = 4096;
-
     struct cpu bacpu;
 
-    if(init_memory(&bacpu, memsz)) return 1;
-    if(init_registers(&bacpu, entryp)) return 1;
+    if(init_memory(&bacpu, memsize)) return 1;
+    if(init_registers(&bacpu, entrypoint)) return 1;
     if(init_peripherals(&bacpu)) return 1;
     if(init_alu(&bacpu)) return 1;
+    if(init_interrupts(&bacpu)) return 1;
 
     INFO("----------------------------------\n");
 
