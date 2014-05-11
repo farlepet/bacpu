@@ -15,14 +15,14 @@ int main(int argc, char **argv)
     struct cpu bacpu;
 
     if(init_memory(&bacpu, memsz)) return 1;
-
     if(init_registers(&bacpu, entryp)) return 1;
-
     if(init_peripherals(&bacpu)) return 1;
+    if(init_alu(&bacpu)) return 1;
 
     INFO("----------------------------------\n");
 
     // Emulate CPU here...
+    test_alu(0xFE, 0x01);
     
     INFO("----------------------------------\n");
 
