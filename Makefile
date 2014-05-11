@@ -3,6 +3,7 @@ SRC     = $(MAINDIR)/src
 INC     = $(MAINDIR)/inc
 
 CSRC    = $(wildcard $(SRC)/*.c)
+CSRC   += $(wildcard $(SRC)/inst/*.c)
 OBJ     = $(patsubst %.c,%.o,$(CSRC))
 EXEC    = $(MAINDIR)/bacpu
 
