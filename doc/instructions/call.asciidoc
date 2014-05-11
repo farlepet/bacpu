@@ -1,0 +1,48 @@
+CALL instruction
+================
+The CALL instruction is similar to the JMP instruction, except that, before
+jumping, it pushes the return address onto the stack. One other difference from
+the JMP instruction is that it does not support short jumps.
+
+Instruction Info Layout
+=======================
+[width="33%"]
+|===============
+| Planar (1 bit)
+|===============
+
+Planar:
+[start=0]
+ . Linear call
+ . Planar call
+
+Instruction Flow
+----------------
+[options="compact"]
+    * Check Planar bit
+    ** Planar = 0
+    *** Check that address exists
+    **** False
+    ***** Increase PC
+    ***** Call exception
+    *** Push PC
+    *** Set PC to register
+    ** Planar = 1
+    *** Check that plane exists
+    **** False
+    ***** Increase PC
+    ***** Call exception
+    *** Push adjusted PC
+    *** Set CR to first register
+    *** Set PC to second register
+
+Instruction Format
+------------------
+    * If Planar == 0
+    ** OpCode with two registers
+	*** First Register:     Pointer to location to jump to
+	*** Second Register:    Unused
+    * Else If Planar == 1
+	** Instruction Format: OpCode with two registers
+	*** First Register:     Plane to jump to
+	*** Second Register:    Offest within the plane to jump to

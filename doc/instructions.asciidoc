@@ -27,4 +27,6 @@ List of Instructions
 | 10  | JOC  | See joc.txt | Jump on Condition       | joc.asciidoc                 
 | 11  | PUSH | N/A         | Push item onto stack    | push.asciidoc                
 | 12  | POP  | N/A         | Pop item from stack     | pop.asciidoc                 
+| 13  | CALL | Imm. or Reg | Call a function         | call.asciidoc
+| 14  | RET  | N/A         | Return from a function  | ret.asciidoc
 |==================================================================================

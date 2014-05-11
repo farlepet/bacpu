@@ -1,0 +1,14 @@
+RET instruction
+===============
+Return from a function entered using CALL.
+
+Instruction Flow
+----------------
+    * Pop last item in stack into PC
+    * Check that PC address exists
+    ** False
+    *** Call exception (irrecoverable)
+
+Instruction Format
+------------------
+    * Opcode Only
