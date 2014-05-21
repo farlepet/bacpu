@@ -21,6 +21,20 @@ static inline bool get_irq_line(struct cpu *bacpu, uint8_t n)
     return false;
 }
 
+int call_interrupt(struct cpu *bacpu, uint8_t n)
+{
+    if(bacpu == NULL) { FATAL("call_interrupt: bacpu == NULL\n"); return 1; }
+
+    uint32_t addr = n * 4;
+    uint32_t ptr;
+
+    memory_read(bacpu, MMU_SIZE_DWORD, addr, &ptr);
+
+    
+
+    return 0;
+}
+
 int emulate_irq(struct cpu *bacpu)
 {
     if(bacpu == NULL) { FATAL("emulate_irq: bacpu == NULL\n"); return 1; }

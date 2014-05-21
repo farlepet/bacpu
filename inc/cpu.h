@@ -9,14 +9,14 @@
 struct cpu; // Required so that the files below can be included
 
 // Macros to make messages and error reporting easier:
-#define FATAL(...) printf("\e31FATAL: \e0"__VA_ARGS__)
-#define INFO(...) printf("INFO: "__VA_ARGS__)
+#define FATAL(...) printf("\e[31mFATAL: \e[0m"__VA_ARGS__)
+#define INFO(...) printf("\e[32mINFO: \e[0m"__VA_ARGS__)
 
 // Definitions to make data definitions easier
 #define __packed __attribute__((__packed__))
 
 // BACPU includes
-#include <instruction_format.h>
+#include <instructions.h>
 #include <peripherals.h>
 #include <interrupts.h>
 #include <registers.h>

@@ -3,4 +3,6 @@
 
 #include <cpu.h>
 
+int execute_nop(struct cpu *bacpu);
+
 #endif // INST_NOP_H

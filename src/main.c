@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include <instructions.h>
 #include <cpu.h>
 
 size_t memsize      = 1024 * 16; // 16 KB
