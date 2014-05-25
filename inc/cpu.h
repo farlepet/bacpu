@@ -1,10 +1,10 @@
 #ifndef CPU_H
 #define CPU_H
 
-#include <stdbool.h>
-#include <stdint.h>
+#include <stdbool.h> // booleans
+#include <stdint.h>  // various integer definitions
 #include <stddef.h>
-#include <stdio.h>
+#include <stdio.h>   // printf: from INFO and FATAL
 
 struct cpu; // Required so that the files below can be included
 

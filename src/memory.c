@@ -42,7 +42,7 @@ int deinit_memory(struct cpu *bacpu)
 
 
 
-int memory_read(struct cpu *bacpu, uint8_t data_size, uint32_t addr, uint32_t *data)
+int memory_read(struct cpu *bacpu, uint8_t data_size, uint32_t addr, void *data)
 {
     if(bacpu == NULL) { FATAL("memory_write: bacpu == NULL\n"); return 1; }
 
@@ -57,7 +57,16 @@ int memory_read(struct cpu *bacpu, uint8_t data_size, uint32_t addr, uint32_t *d
         return 0;
     }
 
-    *data = bacpu->mm.data;
+    switch(data_size)
+    {
+        case MMU_SIZE_BYTE:     *(uint8_t *)data = (uint8_t)bacpu->mm.data;
+                                break;
+        case MMU_SIZE_WORD:     *(uint8_t *)data = (uint8_t)bacpu->mm.data;
+                                break;
+        case MMU_SIZE_DWORD:    *(uint8_t *)data = (uint8_t)bacpu->mm.data;
+                                break;
+        default:                return 1; // TODO
+    }
     bacpu->mm.info = 0;
 
     return 0;

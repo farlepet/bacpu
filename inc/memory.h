@@ -61,7 +61,7 @@ int deinit_memory(struct cpu *bacpu);
  *
  * @return 0 if successful, else 1
  */
-int memory_read(struct cpu *bacpu, uint8_t data_size, uint32_t addr, uint32_t *data);
+int memory_read(struct cpu *bacpu, uint8_t data_size, uint32_t addr, void *data);
 
 /**
  * Simulate a memory write.

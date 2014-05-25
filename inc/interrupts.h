@@ -13,13 +13,6 @@ struct irq_con
     uint8_t selector; //! Select which IRQ line to check
 };
 
-//! Format of an interrupt vector
-struct int_vec
-{
-    uint32_t l_ptr;    //! Linear pointer
-    uint32_t p_region; //! Planar region
-    uint16_t p_offset; //! Planar offset
-};
 
 /**
  * Initialize interrupt controller
@@ -39,4 +32,13 @@ int init_interrupts(struct cpu *bacpu);
  */
 int emulate_irq(struct cpu *bacpu);
 
+/**
+ * Emulate a call of an interrupt or exception
+ *
+ * @param bacpu pointer to CPU structure
+ * @param n     interrupt or exception number to call
+ *
+ * @returns 0 if successful, else 1
+ */
+int call_interrupt(struct cpu *bacpu, uint16_t n);
 #endif // INTERRUPTS

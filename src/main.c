@@ -1,4 +1,5 @@
-#include <stdio.h>
+#include <stdlib.h> // rand: for tests
+#include <time.h>   // time: for random seed generation
 
 #include <instructions.h>
 #include <cpu.h>
@@ -24,7 +25,10 @@ int main(int argc, char **argv)
     INFO("----------------------------------\n");
 
     // Emulate CPU here...
-    test_alu(0xFE, 0x01);
+    
+    // Testing:
+    srand(time(NULL)); // Generate a random number so tests aren't biased
+    test_alu(rand()%256, rand()%256); // Test the ALU
     
     INFO("----------------------------------\n");
 

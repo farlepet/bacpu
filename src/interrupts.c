@@ -21,16 +21,20 @@ static inline bool get_irq_line(struct cpu *bacpu, uint8_t n)
     return false;
 }
 
-int call_interrupt(struct cpu *bacpu, uint8_t n)
+int call_interrupt(struct cpu *bacpu, uint16_t n)
 {
     if(bacpu == NULL) { FATAL("call_interrupt: bacpu == NULL\n"); return 1; }
 
-    uint32_t addr = n * 4;
+    if(n > 512) return 1; // TODO
+
+    uint32_t addr = n << 2;
     uint32_t ptr;
 
-    memory_read(bacpu, MMU_SIZE_DWORD, addr, &ptr);
+    // Get value of the interrupt vector
+    if(memory_read(bacpu, MMU_SIZE_DWORD, addr, &ptr)) return 1; // TODO: more reliable error reporting
 
-    
+    // Push the current value of PC so we can return there after the interrupt
+    if(stack_push(bacpu, bacpu->regs.pc)) return 1; // TODO: more reliable error reporting
 
     return 0;
 }
@@ -41,10 +45,11 @@ int emulate_irq(struct cpu *bacpu)
 
     for(int i = 0; i < 256; i++)
     {
+        // Check each MUX input:
         if(get_irq_line(bacpu, (uint8_t)i))
         {
             INFO("IRQ from peripheral %d\n", i);
-            // Do Something
+            call_interrupt(bacpu, i);
         }
     }
 
