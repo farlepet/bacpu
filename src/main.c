@@ -4,7 +4,7 @@
 #include <instructions.h>
 #include <cpu.h>
 
-size_t memsize      = 1024 * 16; // 16 KB
+size_t   memsize    = 1024 * 16; // 16 KB
 uint32_t entrypoint = 4096;
 
 int main(int argc, char **argv)
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
     
     // Testing:
     srand(time(NULL)); // Generate a random number so tests aren't biased
-    test_alu(rand()%256, rand()%256); // Test the ALU
+    test_alu(&bacpu, rand()%256, rand()%256); // Test the ALU
     
     INFO("----------------------------------\n");
 

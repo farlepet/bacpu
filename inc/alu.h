@@ -47,6 +47,6 @@ int init_alu(struct cpu *bacpu);
 int emulate_alu(struct alu *alu);
 
 // Test the emulated ALU
-int test_alu(uint32_t a, uint32_t b);
+int test_alu(struct cpu *bacpu, uint32_t a, uint32_t b);
 
 #endif // ALU_H

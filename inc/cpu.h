@@ -1,10 +1,13 @@
 #ifndef CPU_H
 #define CPU_H
 
-#include <stdbool.h> // booleans
-#include <stdint.h>  // various integer definitions
+#include <pthread.h>   // multi-threading
+#include <semaphore.h>
+#include <time.h>
+#include <stdbool.h>   // booleans
+#include <stdint.h>    // various integer definitions
 #include <stddef.h>
-#include <stdio.h>   // printf: from INFO and FATAL
+#include <stdio.h>     // printf: from INFO and FATAL
 
 struct cpu; // Required so that the files below can be included
 
@@ -14,6 +17,8 @@ struct cpu; // Required so that the files below can be included
 
 // Definitions to make data definitions easier
 #define __packed __attribute__((__packed__))
+
+#define ndelay(nsec) ({ struct timespec ts = { 0, nsec }; while(nanosleep(&ts, &ts) == -1); })
 
 // BACPU includes
 #include <instructions.h>

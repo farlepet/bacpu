@@ -3,6 +3,10 @@
 #include <arithmetic.h>
 #include <cpu.h>
 
+pthread_t alu_thread;
+
+static void *alu_task(void *);
+
 int init_alu(struct cpu *bacpu)
 {
     // If this is true, somehting went wrong internally
@@ -16,7 +20,21 @@ int init_alu(struct cpu *bacpu)
     bacpu->alu.result = 0;
     bacpu->alu.flags  = 0;
 
+    pthread_create(&alu_thread, NULL, alu_task, &bacpu->alu); // Create ALU task
+
     return 0;
+}
+
+static void *alu_task(void *alu)
+{
+    while(1) // TODO: Allow for stopping
+    {
+        if(emulate_alu((struct alu *)alu))
+        {
+            FATAL("ALU encountered an error!\n");
+            return NULL;
+        }
+    }
 }
 
 int emulate_alu(struct alu *alu)
@@ -52,54 +70,49 @@ int emulate_alu(struct alu *alu)
     return 0;
 }
 
-int test_alu(uint32_t a, uint32_t b)
+#define ALU_TEST(bacpu, test, a, b) \
+    ({ bacpu->alu.a = a; bacpu->alu.b = b; bacpu->alu.op = test; ndelay(100); bacpu->alu.result; })
+
+int test_alu(struct cpu *bacpu, uint32_t a, uint32_t b)
 {
     INFO("Testing Aritmetic Logic Unit with (%X, %X)\n", a, b);
     
-    struct alu alu;
+    bacpu->alu.a = a;
+    bacpu->alu.b = b;
 
-    alu.a = a;
-    alu.b = b;
+    uint32_t res = 0;
 
     // Test AND
-    alu.op = ALU_AND;
-    emulate_alu(&alu);
-    INFO("AND(%X, %X):  %08X:%X\n", alu.a, alu.b, alu.result, alu.flags);
+    res = ALU_TEST(bacpu, ALU_AND, a, b);
+    INFO("AND:  %08X\n", res);
 
     // Test NAND
-    alu.op = ALU_NAND;
-    emulate_alu(&alu);
-    INFO("NAND(%X, %X): %08X:%X\n", alu.a, alu.b, alu.result, alu.flags);
+    res = ALU_TEST(bacpu, ALU_NAND, a, b);
+    INFO("NAND: %08X\n", res);
 
     // Test OR
-    alu.op = ALU_OR;
-    emulate_alu(&alu);
-    INFO("OR(%X, %X):   %08X:%X\n", alu.a, alu.b, alu.result, alu.flags);
-    
-    // Test OR
-    alu.op = ALU_NOR;
-    emulate_alu(&alu);
-    INFO("NOR(%X, %X):  %08X:%X\n", alu.a, alu.b, alu.result, alu.flags);
+    res = ALU_TEST(bacpu, ALU_OR, a, b);
+    INFO("OR:   %08X\n", res);
+   
+    // Test NOR
+    res = ALU_TEST(bacpu, ALU_NOR, a, b);
+    INFO("NOR:  %08X\n", res);
 
     // Test XOR
-    alu.op = ALU_XOR;
-    emulate_alu(&alu);
-    INFO("XOR(%X, %X):  %08X:%X\n", alu.a, alu.b, alu.result, alu.flags);
+    res = ALU_TEST(bacpu, ALU_XOR, a, b);
+    INFO("XOR:  %08X\n", res);
 
     // Test XNOR
-    alu.op = ALU_XNOR;
-    emulate_alu(&alu);
-    INFO("XNOR(%X, %X): %08X:%X\n", alu.a, alu.b, alu.result, alu.flags);
+    res = ALU_TEST(bacpu, ALU_XNOR, a, b);
+    INFO("XNOR: %08X\n", res);
 
     // Test ADD
-    alu.op = ALU_ADD;
-    emulate_alu(&alu);
-    INFO("ADD(%X, %X):  %08X:%X\n", alu.a, alu.b, alu.result, alu.flags);
-    
+    res = ALU_TEST(bacpu, ALU_ADD, a, b);
+    INFO("ADD:  %08X\n", res);
+   
     // Test SUB
-    alu.op = ALU_SUB;
-    emulate_alu(&alu);
-    INFO("SUB(%X, %X):  %08X:%X\n", alu.a, alu.b, alu.result, alu.flags);
-    
+    res = ALU_TEST(bacpu, ALU_SUB, a, b);
+    INFO("SUB:  %08X\n", res);
+   
     return 0;
 }
