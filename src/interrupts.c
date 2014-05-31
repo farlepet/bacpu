@@ -1,11 +1,17 @@
 #include <cpu.h>
 
+pthread_t irq_thread;
+
+static void *irq_task(void *);
+
 int init_interrupts(struct cpu *bacpu)
 {
     // This should never be true
     if(bacpu == NULL) { FATAL("init_interrupts: bacpu == NULL\n"); return 1; }
 
     INFO("Initializing interrupt controllers\n");
+
+    pthread_create(&irq_thread, NULL, irq_task, bacpu);
 
     return 0;
 }
@@ -37,6 +43,18 @@ int call_interrupt(struct cpu *bacpu, uint16_t n)
     if(stack_push(bacpu, bacpu->regs.pc)) return 1; // TODO: more reliable error reporting
 
     return 0;
+}
+
+static void *irq_task(void *bacpu)
+{
+    while(1) // TODO: Add more conditions for stopping
+    {
+        if(emulate_irq((struct cpu *)bacpu))
+        {
+            FATAL("irq_task: emulate_irq failed\n");
+            return NULL; // TODO: Exit entire program
+        }
+    }
 }
 
 int emulate_irq(struct cpu *bacpu)
