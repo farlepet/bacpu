@@ -42,6 +42,8 @@ struct mmu
  */
 int init_memory(struct cpu *bacpu, size_t length);
 
+int emulate_mem(struct mmu *mm);
+
 /**
  * De-initialize memory controller and free allocated memory.
  *

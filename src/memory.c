@@ -3,6 +3,10 @@
 
 #include <cpu.h>
 
+pthread_t mem_thread;
+
+static void *mem_task(void *);
+
 int init_memory(struct cpu *bacpu, size_t length)
 {
     // If this is true, something bad happened
@@ -24,6 +28,83 @@ int init_memory(struct cpu *bacpu, size_t length)
         FATAL("init_memory: Could not allocate memory for BACPU!\n");
         return 1;
     }
+
+    pthread_create(&mem_thread, NULL, mem_task, &bacpu->mm);
+
+    return 0;
+}
+
+static void *mem_task(void *bacpu)
+{
+    while(1)
+    {
+        if(emulate_mem(&((struct cpu *)bacpu)->mm))
+        {
+            FATAL("mem_task: emulate_mem: An error occured\n");
+            return NULL; // TODO
+        }
+    }
+}
+
+int emulate_mem(struct mmu *mm)
+{
+    if(mm == NULL) { FATAL("emulate_mem: mm == NULL\n"); return 1; }
+    
+    if(!(mm->info & MMU_INFO_ENABLE)) return 0; // Don't do anything yet
+
+    if((mm->address + ((1 << (((mm->info & MMU_INFO_SIZE) >> 2) - 1)) - 1)) > mm->size)
+    { // Not actually an error
+        INFO("emulate_mem: memory access to non-existent area\n");
+        mm->info |= MMU_INFO_COMPLETE;
+        mm->info &= ~MMU_INFO_EXIST;
+    }
+    else mm->info |= MMU_INFO_EXIST;
+
+    if(mm->info & MMU_INFO_WRITE)
+    { // Memory write
+        switch(mm->info & MMU_INFO_SIZE)
+        {
+            case MMU_SIZE_BYTE:
+                ((uint8_t *)mm->memory)[mm->address] = (uint8_t)mm->data;
+                break;
+
+            case MMU_SIZE_WORD:
+                ((uint16_t *)mm->memory)[mm->address] = (uint16_t)mm->data;
+                break;
+
+            case MMU_SIZE_DWORD:
+                ((uint32_t *)mm->memory)[mm->address] = (uint32_t)mm->data;
+                break;
+
+            default:
+                FATAL("emulate_mem: Unhandled MMU_SIZE\n");
+                return 1;
+        }
+        mm->info |= MMU_INFO_COMPLETE;
+    }
+    else
+    { // Memory read
+        switch(mm->info & MMU_INFO_SIZE)
+        {
+            case MMU_SIZE_BYTE:
+                mm->data = ((uint8_t *)mm->memory)[mm->address];
+                break;
+
+            case MMU_SIZE_WORD:
+                mm->data = ((uint16_t *)mm->memory)[mm->address];
+                break;
+
+            case MMU_SIZE_DWORD:
+                mm->data = ((uint32_t *)mm->memory)[mm->address];
+                break;
+
+            default:
+                FATAL("emulate_mem: Unhandled MMU_SIZE\n");
+                return 1;
+        }
+        mm->info |= MMU_INFO_COMPLETE;
+    }
+
 
     return 0;
 }
@@ -54,16 +135,16 @@ int memory_read(struct cpu *bacpu, uint8_t data_size, uint32_t addr, void *data)
 
     if(!(bacpu->mm.info & MMU_INFO_EXIST))
     {
-        return 0;
+        return 1;
     }
 
     switch(data_size)
     {
         case MMU_SIZE_BYTE:     *(uint8_t *)data = (uint8_t)bacpu->mm.data;
                                 break;
-        case MMU_SIZE_WORD:     *(uint8_t *)data = (uint8_t)bacpu->mm.data;
+        case MMU_SIZE_WORD:     *(uint16_t *)data = (uint16_t)bacpu->mm.data;
                                 break;
-        case MMU_SIZE_DWORD:    *(uint8_t *)data = (uint8_t)bacpu->mm.data;
+        case MMU_SIZE_DWORD:    *(uint32_t *)data = (uint32_t)bacpu->mm.data;
                                 break;
         default:                return 1; // TODO
     }
