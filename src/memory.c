@@ -29,22 +29,33 @@ int init_memory(struct cpu *bacpu, size_t length)
         return 1;
     }
 
-    pthread_create(&mem_thread, NULL, mem_task, &bacpu->mm);
+    if(pthread_create(&mem_thread, NULL, mem_task, &bacpu->mm))
+    {
+        FATAL("Could not create thread for MMU\n");
+        return 1;
+    }
 
     return 0;
 }
 
-static void *mem_task(void *bacpu)
+static void *mem_task(void *mm)
 {
     while(1)
     {
-        if(emulate_mem(&((struct cpu *)bacpu)->mm))
+        if(emulate_mem((struct mmu *)mm))
         {
-            FATAL("mem_task: emulate_mem: An error occured\n");
+            FATAL("mem_task: emulate_mem: An error occurred\n");
             return NULL; // TODO
         }
     }
 }
+
+static int sizes[] =
+{
+    [MMU_SIZE_BYTE]  = 1,
+    [MMU_SIZE_WORD]  = 2,
+    [MMU_SIZE_DWORD] = 4,
+};
 
 int emulate_mem(struct mmu *mm)
 {
@@ -52,9 +63,9 @@ int emulate_mem(struct mmu *mm)
     
     if(!(mm->info & MMU_INFO_ENABLE)) return 0; // Don't do anything yet
 
-    if((mm->address + ((1 << (((mm->info & MMU_INFO_SIZE) >> 2) - 1)) - 1)) > mm->size)
+    if(mm->address + sizes[mm->info & MMU_INFO_SIZE] - 1 > mm->size)
     { // Not actually an error
-        INFO("emulate_mem: memory access to non-existent area\n");
+        INFO("emulate_mem: memory access to non-existent area: %08X | %08X\n", mm->address, mm->size);
         mm->info |= MMU_INFO_COMPLETE;
         mm->info &= ~MMU_INFO_EXIST;
     }
@@ -62,18 +73,19 @@ int emulate_mem(struct mmu *mm)
 
     if(mm->info & MMU_INFO_WRITE)
     { // Memory write
+        //INFO("Writing %X to %X\n", mm->data, mm->address);
         switch(mm->info & MMU_INFO_SIZE)
         {
             case MMU_SIZE_BYTE:
-                ((uint8_t *)mm->memory)[mm->address] = (uint8_t)mm->data;
+                *(uint8_t *)((size_t)mm->memory + mm->address) = (uint8_t)mm->data;
                 break;
 
             case MMU_SIZE_WORD:
-                ((uint16_t *)mm->memory)[mm->address] = (uint16_t)mm->data;
+                *(uint16_t *)((size_t)mm->memory + mm->address) = (uint16_t)mm->data;
                 break;
 
             case MMU_SIZE_DWORD:
-                ((uint32_t *)mm->memory)[mm->address] = (uint32_t)mm->data;
+                *(uint32_t *)((size_t)mm->memory + mm->address) = (uint32_t)mm->data;
                 break;
 
             default:
@@ -157,10 +169,9 @@ int memory_write(struct cpu *bacpu, uint8_t data_size, uint32_t addr, uint32_t d
 {
    if(bacpu == NULL) { FATAL("memory_write: bacpu == NULL\n"); return 1; }
 
-    bacpu->mem.address = addr;
     bacpu->mm.address  = addr;
-    bacpu->mm.info     = data_size | MMU_INFO_ENABLE | MMU_INFO_WRITE;
     bacpu->mm.data     = data;
+    bacpu->mm.info     = data_size | MMU_INFO_ENABLE | MMU_INFO_WRITE;
 
     while(!(bacpu->mm.info & MMU_INFO_COMPLETE)); // NOTE: Make sure to make MMU a seperate thread
 
@@ -207,6 +218,36 @@ int stack_pop(struct cpu *bacpu, uint32_t *data)
     if(memory_read(bacpu, MMU_SIZE_DWORD, bacpu->regs.sp & (~0x03), data)) return 1;
 
     bacpu->regs.sp -= 4;
+
+    return 0;
+}
+
+int test_mem(struct cpu *bacpu)
+{
+    if(bacpu == NULL) { FATAL("test_mem: bacpu == NULL\n"); return 1; }
+
+    INFO("Testing MMU...\n");
+
+    void mwr(uint32_t n, uint32_t size, uint32_t addr)
+    {
+        INFO("Writing %08X to %08X...", n, addr);
+        memory_write(bacpu, size, addr, n);
+        printf("DONE\n");
+    }
+    uint32_t mrd(uint32_t size, uint32_t addr)
+    {
+        INFO("Reading from %08X...", addr);
+        uint32_t n;
+        memory_read(bacpu, size, addr, &n);
+        printf("DONE: %X\n", n);
+        return n;
+    }
+
+    mwr(0, MMU_SIZE_BYTE, 0);
+    mrd(MMU_SIZE_BYTE, 0);
+
+    mwr(255, MMU_SIZE_BYTE, 0);
+    mrd(MMU_SIZE_BYTE, 0);
 
     return 0;
 }

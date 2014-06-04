@@ -97,4 +97,6 @@ int stack_push(struct cpu *bacpu, uint32_t data);
  */
 int stack_pop(struct cpu *bacpu, uint32_t *data);
 
+int test_mem(struct cpu *bacpu);
+
 #endif

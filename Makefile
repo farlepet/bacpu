@@ -11,6 +11,7 @@ DEFS   += -D_POSIX_C_SOURCE=199309L
 LIBS   += -lpthread
 INCS   += -I $(INC)
 CFLAGS += -Wall -Wextra -Werror -std=c99 $(DEFS) $(LIBS) $(INCS)
+# CFLAGS += -g
 
 all: $(OBJ)
 	@echo "  Creating CPU binary"
