@@ -44,17 +44,17 @@ Register Descriptions
     * 32-bit
     * Program Counter
     * Bit 0 is don't-care
-    ** All instructions are a multiple of 2 in length (See instruction_format.txt)
+    ** All instructions are a multiple of 2 in length (See instruction_format.asciidoc)
 
 .FLGS
     * 32-bit
     * Flags
-    ** See flags.txt
+    ** See flags.asciidoc
 
 .DR
     * 32-bit
     * Data Region
-    ** Only used if 'Planar Memory' is enabled (See memory.txt)
+    ** Only used if 'Planar Memory' is enabled (See memory.asciidoc)
 
 .CR
     * 32-bit
@@ -70,5 +70,5 @@ Register Descriptions
     * 32-bi
     * Stack Pointer
     * Bits 0 and 1 are don't-care
-    ** Stacks must be placed on 4-byte boundries
+    ** Stacks must be placed on 4-byte boundaries
     ** All items pushed to the stack will be pushed as 4 bytes

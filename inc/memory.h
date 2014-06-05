@@ -29,7 +29,7 @@ struct mmu
 
     // Only used internally by emulator:
     uint32_t size;    //!< Size of memory
-    uint32_t *memory; //!< Pointer to memory
+    uint8_t *memory;  //!< Pointer to memory
 };
 
 /**

@@ -7,6 +7,15 @@
 size_t   memsize    = 1024 * 16; // 16 KB
 uint32_t entrypoint = 4096;
 
+// A test program
+static uint8_t prgm[] =
+{
+//  Opcode  Info
+    0x00,   0x00,   // NOP
+    0x00,   0x00,   // NOP
+    0xFF,   0x01,   // EFN QUIT
+};
+
 int main(int argc, char **argv)
 {
 	(void)argc;
@@ -24,17 +33,25 @@ int main(int argc, char **argv)
 
     INFO("----------------------------------\n");
 
-    // Emulate CPU here...
-    
     // Testing:
     srand(time(NULL)); // Generate a random number so tests aren't biased
 
     test_alu(&bacpu, rand()%256, rand()%256); // Test the ALU
 
-    test_mem(&bacpu); // Test the MMU
+    //test_mem(&bacpu); // Test the MMU
     
     INFO("----------------------------------\n");
 
+    // Emulate the cpu TODO: Put in separate thread
+    memcpy(bacpu.mm.memory + 4096, prgm, sizeof(prgm)); // Copy test program
+    
+    bacpu.in.enable = 1; // Enable CPU
+    bacpu.in.reset  = 0; // Make sure reset line is low
+    while(!emulate_cpu(&bacpu)); // TODO: Error handling
+                                 // TODO: Separate thread
+
+    INFO("----------------------------------\n");
+    
     if(deinit_memory(&bacpu)) return 1;
 
     return 0;
