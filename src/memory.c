@@ -47,6 +47,7 @@ static void *mem_task(void *mm)
             FATAL("mem_task: emulate_mem: An error occurred\n");
             return NULL; // TODO
         }
+        sched_yield();
     }
 }
 
@@ -77,15 +78,15 @@ int emulate_mem(struct mmu *mm)
         switch(mm->info & MMU_INFO_SIZE)
         {
             case MMU_SIZE_BYTE:
-                *(uint8_t *)((size_t)mm->memory + mm->address) = (uint8_t)mm->data;
+                *(uint8_t *)((uint8_t *)mm->memory + mm->address) = (uint8_t)mm->data;
                 break;
 
             case MMU_SIZE_WORD:
-                *(uint16_t *)((size_t)mm->memory + mm->address) = (uint16_t)mm->data;
+                *(uint16_t *)((uint8_t *)mm->memory + mm->address) = (uint16_t)mm->data;
                 break;
 
             case MMU_SIZE_DWORD:
-                *(uint32_t *)((size_t)mm->memory + mm->address) = (uint32_t)mm->data;
+                *(uint32_t *)((uint8_t *)mm->memory + mm->address) = (uint32_t)mm->data;
                 break;
 
             default:
@@ -99,15 +100,15 @@ int emulate_mem(struct mmu *mm)
         switch(mm->info & MMU_INFO_SIZE)
         {
             case MMU_SIZE_BYTE:
-                mm->data = ((uint8_t *)mm->memory)[mm->address];
+                mm->data = mm->memory[mm->address];
                 break;
 
             case MMU_SIZE_WORD:
-                mm->data = ((uint16_t *)mm->memory)[mm->address];
+                mm->data = *(uint16_t *)&mm->memory[mm->address];
                 break;
 
             case MMU_SIZE_DWORD:
-                mm->data = ((uint32_t *)mm->memory)[mm->address];
+                mm->data = *(uint32_t *)&mm->memory[mm->address];
                 break;
 
             default:
@@ -117,6 +118,7 @@ int emulate_mem(struct mmu *mm)
         mm->info |= MMU_INFO_COMPLETE;
     }
 
+    //INFO("MM: Access to %X yielded %X\n", mm->address, mm->data);
 
     return 0;
 }
@@ -137,13 +139,14 @@ int deinit_memory(struct cpu *bacpu)
 
 int memory_read(struct cpu *bacpu, uint8_t data_size, uint32_t addr, void *data)
 {
-    if(bacpu == NULL) { FATAL("memory_write: bacpu == NULL\n"); return 1; }
+    if(bacpu == NULL) { FATAL("memory_read: bacpu == NULL\n"); return 1; }
 
     bacpu->mem.address = addr;
     bacpu->mm.address  = addr;
     bacpu->mm.info     = data_size | MMU_INFO_ENABLE;
 
-    while(!(bacpu->mm.info & MMU_INFO_COMPLETE)); // NOTE: Make sure to make MMU a seperate thread
+    sched_yield(); // Make sure MMU has time to run
+    while(!(bacpu->mm.info & MMU_INFO_COMPLETE)) sched_yield();
 
     if(!(bacpu->mm.info & MMU_INFO_EXIST))
     {
@@ -158,7 +161,8 @@ int memory_read(struct cpu *bacpu, uint8_t data_size, uint32_t addr, void *data)
                                 break;
         case MMU_SIZE_DWORD:    *(uint32_t *)data = (uint32_t)bacpu->mm.data;
                                 break;
-        default:                return 1; // TODO
+        default:                INFO("memory_read: Invalid data size!\n");
+                                return 1; // TODO
     }
     bacpu->mm.info = 0;
 
@@ -173,7 +177,8 @@ int memory_write(struct cpu *bacpu, uint8_t data_size, uint32_t addr, uint32_t d
     bacpu->mm.data     = data;
     bacpu->mm.info     = data_size | MMU_INFO_ENABLE | MMU_INFO_WRITE;
 
-    while(!(bacpu->mm.info & MMU_INFO_COMPLETE)); // NOTE: Make sure to make MMU a seperate thread
+    sched_yield(); // Make sure MMU has time to process information
+    while(!(bacpu->mm.info & MMU_INFO_COMPLETE)) sched_yield();
 
     if(!(bacpu->mm.info & MMU_INFO_EXIST))
     {
@@ -237,7 +242,7 @@ int test_mem(struct cpu *bacpu)
     uint32_t mrd(uint32_t size, uint32_t addr)
     {
         INFO("Reading from %08X...", addr);
-        uint32_t n;
+        uint32_t n = 0;
         memory_read(bacpu, size, addr, &n);
         printf("DONE: %X\n", n);
         return n;
@@ -248,6 +253,9 @@ int test_mem(struct cpu *bacpu)
 
     mwr(255, MMU_SIZE_BYTE, 0);
     mrd(MMU_SIZE_BYTE, 0);
+
+    mwr(0x57575757, MMU_SIZE_DWORD, 2);
+    mrd(MMU_SIZE_DWORD, 2);
 
     return 0;
 }

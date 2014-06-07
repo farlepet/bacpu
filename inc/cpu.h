@@ -7,6 +7,7 @@
 #include <string.h>    // Memory operations
 #include <stdint.h>    // various integer definitions
 #include <stddef.h>
+#include <sched.h>
 #include <stdio.h>     // printf: from INFO and FATAL
 #include <time.h>
 

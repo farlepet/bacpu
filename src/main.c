@@ -11,9 +11,12 @@ uint32_t entrypoint = 4096;
 static uint8_t prgm[] =
 {
 //  Opcode  Info
-    0x00,   0x00,   // NOP
-    0x00,   0x00,   // NOP
-    0xFF,   0x01,   // EFN QUIT
+    0x00,   0x00,                                   // 1000: NOP
+    0x00,   0x00,                                   // 1002: NOP
+    0xFF,   0x02,   0x0C,   0x10,   0x00,   0x00,   // 1004: EFN PRINT 0x100C
+    0xFF,   0x01,                                   // 100A: EFN QUIT
+    'H', 'e', 'l', 'l', 'o', ',', ' ', 'W', 'o',
+    'r', 'l', 'd', '!', '\0'                        // 100C: STRING
 };
 
 int main(int argc, char **argv)

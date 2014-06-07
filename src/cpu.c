@@ -44,13 +44,23 @@ int emulate_cpu(struct cpu *bacpu)
                 INFO("Quitting emulator at %08X...\n", bacpu->regs.pc);
                 return 1;
 
+            case 0x02: // Display message
+            {
+                uint32_t str = 0;
+                memory_read(bacpu, MMU_SIZE_DWORD, bacpu->regs.pc+2, &str);
+                INFO("CPU Says: (0x%X):%s\n", str, (char *)(bacpu->mm.memory + str));
+                bacpu->regs.pc += 6; // 1 + 1 + 4
+            }   break;
+
             default:
                 FATAL("Unrecognized emulator opcode 0x%02X at 0x%08X. Halting.\n", subcode, bacpu->regs.pc);
                 for(;;) ndelay(1000000); // TODO
                 break;
         }
-    }
 
+        return 0;
+    }
+    
     INFO("Executing opcode %02X at %08X\n", opcode, bacpu->regs.pc);
 
     if(instructions[opcode](bacpu))

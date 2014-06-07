@@ -8,7 +8,7 @@ OBJ     = $(patsubst %.c,%.o,$(CSRC))
 EXEC    = $(MAINDIR)/bacpu
 
 DEFS   += -D_POSIX_C_SOURCE=199309L
-LIBS   += -lpthread
+LIBS   += -pthread
 INCS   += -I $(INC)
 CFLAGS += -Wall -Wextra -Werror -std=c99 $(DEFS) $(LIBS) $(INCS)
 # CFLAGS += -g
