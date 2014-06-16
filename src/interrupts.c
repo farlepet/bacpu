@@ -42,6 +42,10 @@ int call_interrupt(struct cpu *bacpu, uint16_t n)
     // Push the current value of PC so we can return there after the interrupt
     if(stack_push(bacpu, bacpu->regs.pc)) return 1; // TODO: more reliable error reporting
 
+    // TODO: Check memory mode
+    bacpu->regs.pc = ptr;
+
+
     return 0;
 }
 
@@ -54,6 +58,7 @@ static void *irq_task(void *bacpu)
             FATAL("irq_task: emulate_irq failed\n");
             return NULL; // TODO: Exit entire program
         }
+        sched_yield();
     }
 }
 

@@ -67,51 +67,57 @@ int emulate_alu(struct alu *alu)
     if(alu->result == 0) alu->flags |= ALU_FLAG_ZERO;
     else alu->flags &= ~ALU_FLAG_ZERO;
 
+    alu->n_runs++;
+
     return 0;
 }
-
-#define ALU_TEST(bacpu, test, a, b) \
-    ({ bacpu->alu.a = a; bacpu->alu.b = b; bacpu->alu.op = test; ndelay(100); bacpu->alu.result; })
 
 int test_alu(struct cpu *bacpu, uint32_t a, uint32_t b)
 {
     INFO("Testing Aritmetic Logic Unit with (%X, %X)\n", a, b);
     
-    bacpu->alu.a = a;
-    bacpu->alu.b = b;
-
     uint32_t res = 0;
 
+    uint32_t ALU_TEST(uint32_t test)
+    {
+        bacpu->alu.a  = a;
+        bacpu->alu.b  = b;
+        bacpu->alu.op = test;
+        uint64_t runs_end = bacpu->alu.n_runs + 2;
+        while(bacpu->alu.n_runs < runs_end) sched_yield();
+        return bacpu->alu.result;
+    }
+
     // Test AND
-    res = ALU_TEST(bacpu, ALU_AND, a, b);
+    res = ALU_TEST(ALU_AND);
     INFO("AND:  %08X\n", res);
 
     // Test NAND
-    res = ALU_TEST(bacpu, ALU_NAND, a, b);
+    res = ALU_TEST(ALU_NAND);
     INFO("NAND: %08X\n", res);
 
     // Test OR
-    res = ALU_TEST(bacpu, ALU_OR, a, b);
+    res = ALU_TEST(ALU_OR);
     INFO("OR:   %08X\n", res);
    
     // Test NOR
-    res = ALU_TEST(bacpu, ALU_NOR, a, b);
+    res = ALU_TEST(ALU_NOR);
     INFO("NOR:  %08X\n", res);
 
     // Test XOR
-    res = ALU_TEST(bacpu, ALU_XOR, a, b);
+    res = ALU_TEST(ALU_XOR);
     INFO("XOR:  %08X\n", res);
 
     // Test XNOR
-    res = ALU_TEST(bacpu, ALU_XNOR, a, b);
+    res = ALU_TEST(ALU_XNOR);
     INFO("XNOR: %08X\n", res);
 
     // Test ADD
-    res = ALU_TEST(bacpu, ALU_ADD, a, b);
+    res = ALU_TEST(ALU_ADD);
     INFO("ADD:  %08X\n", res);
    
     // Test SUB
-    res = ALU_TEST(bacpu, ALU_SUB, a, b);
+    res = ALU_TEST(ALU_SUB);
     INFO("SUB:  %08X\n", res);
    
     return 0;

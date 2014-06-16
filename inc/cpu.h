@@ -20,7 +20,11 @@ struct cpu; // Required so that the files below can be included
 // Definitions to make data definitions easier
 #define __packed __attribute__((__packed__))
 
+// Delay a specified number of nanoseconds
 #define ndelay(nsec) ({ struct timespec ts = { 0, nsec }; while(nanosleep(&ts, &ts) == -1); })
+
+// Find number of elements in an array
+#define asize(array) (sizeof(array) / sizeof(array[0]))
 
 // BACPU includes
 #include <instructions.h>

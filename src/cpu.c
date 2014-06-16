@@ -63,6 +63,13 @@ int emulate_cpu(struct cpu *bacpu)
     
     INFO("Executing opcode %02X at %08X\n", opcode, bacpu->regs.pc);
 
+    if(opcode >= asize(instructions))
+    {
+        INFO("    -> Instruction is non-existant!\n");
+        bacpu->regs.pc += 2; // TODO: call exception
+        return 0;
+    }
+
     if(instructions[opcode](bacpu))
     {
         // TODO: Handle this well

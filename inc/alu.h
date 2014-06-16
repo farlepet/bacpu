@@ -38,6 +38,11 @@ struct alu
     uint8_t  op;     // Operation
     uint32_t result; // Result or operation
     uint8_t  flags;  // Output flags
+
+    // Internal emulator-only
+    uint64_t n_runs; // Number of times the ALU has run. Used to make sure it
+                     // gets the correct result, as the scheduler may not run
+                     // things uniformly as may be wished
 };
 
 // Initialize the ALU
